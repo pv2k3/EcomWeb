@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/stylesignup.css" />
+    <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
+    <title>Byte Zone</title>
+  </head>
+  <body>
+    <%- include('./partials/navbar') %>
+    <%- include('./partials/msg') %>
+    
+    <div class="parent">
+      <% if (locals.type == "signup") { %>
+      <main class="sign-up-card card">
+        <h1>Sign Up</h1>
+        <form action="/account/signup" method="post">
+          <div class="line-area">
+            <label for="name">Name </label>
+            <input type="text" name="userName" required id="name" />
+          </div>
+          <div class="line-area">
+            <label for="email">Email </label>
+            <input type="email" name="email" required id="email" />
+          </div>
+          <div class="line-area">
+            <label for="password">Password </label>
+            <input type="password" name="password" required id="password" />
+          </div>
+          <div class="line-area">
+            <label for="contact1">Contact </label>
+            <input type="tel" name="contact" required id="contact1" />
+          </div>
+          <div class="line-area">
+            <label for="address">Address </label>
+            <textarea
+              id="address"
+              name="address"
+              required
+              cols="30"
+              rows="3"
+            ></textarea>
+          </div>
+          <a href="/account">Already have an account?</a>
+          <button type="submit">Sign Up</button>
+        </form>
+      </main>
+      <% } else if (locals.type == "login") { %>
+      <main class="login-card card">
+        <h1>Login</h1>
+        <form action="/account/login" method="post">
+          <div class="line-area">
+            <label for="email">Email </label>
+            <input type="email" name="email" required id="email" />
+          </div>
+          <div class="line-area">
+            <label for="password">Password </label>
+            <input type="password" name="password" required id="password" />
+          </div>
+          <a href="/account/signup">Create account</a>
+          <button type="submit">Login</button>
+        </form>
+      </main>
+      <% } else { %>
+      <main class="card">
+        <h2>Logged in as <%= user.userName %></h2>
+        <p>Address : <%= user.address %></p>
+        <p>Contact : <%= user.contact %></p>
+        <form action="/logout" method="post">
+          <button type="submit">Log Out</button>
+        </form>
+        <% if (locals.item) { %>
+          <main class="sect">
+            <h4>Bought Record</h4>
+            <div class="content">
+                <% item.forEach(element => { %>
+                  <p> <%= element._doc.productName %> </p>
+                  <p> <%= element._doc.price %> </p>
+                  <p> <%= element.bought_qty %> </p>
+                <% }) %>
+            </div>
+          </main>
+        <% } %>
+        <% if (locals.item2) { %>
+          <main class="sect">
+            <h4>Items In Cart</h4>
+            <div class="content">
+                <% item2.forEach(element => { %>
+                  <p> <%= element._doc.productName %> </p>
+                  <p> <%= element._doc.price %> </p>
+                <% }) %>
+            </div>
+          </main>
+        <% } %>
+      </main>
+      <% } %>
+    </div>
+    <%- include('./partials/footer') %>
+    <%- include("./partials/scripts") %>
+  </body>
+</html>

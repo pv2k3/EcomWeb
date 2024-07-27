@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/styleSingleProduct.css" />
+    <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/x-icon" />
+    <title>Buy Product <%= name %> </title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/store"> <img src="../img/nav_left.svg" alt=""> Store</a>
+    </nav>
+    <main class="item-card">
+      <div class="img">
+        <img src=<%= image %> alt=<%= name %>>
+      </div>
+        <div class="text-section">
+          <h2> <%= name %> </h2>
+          <ul>
+            <li><h4>Price : </h4><p class="price">Rupees <%= price %></p></li> 
+          </ul>   
+          <form action= <%= `/buy?item=${id}&type=${type}` %> method="post">
+            <label for="quantity">Quantity : </label>
+            <input type="number" name="quantity" id="quantity" min="1" max="10" value="1"><br>
+            <button class="buyButton" type="submit">Buy</button>
+          </form>
+        </div>
+      </main>
+      <main class="userDetail item-card">
+        <ul>
+          <li><h4>Address : </h4><p><%= address %></p></li> 
+          <li><h4>Contact : </h4><p><%= contact %></p></li> 
+        </ul> 
+      </main>
+      <script>
+        var priceElem = document.getElementsByClassName("price")[0];
+        var qty = document.getElementById("quantity");
+        
+        var price = Number(priceElem.innerHTML.split("Rupees ")[1]);
+
+        qty.addEventListener("click", ()=>{
+          priceElem.innerHTML = `Rupees ${price * qty.value}`
+        })
+
+      </script>
+  </body>
+</html>

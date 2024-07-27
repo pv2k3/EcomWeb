@@ -1,0 +1,23 @@
+<script>
+  var burger = document.getElementsByClassName("burger")[0];
+  var line = document.getElementsByClassName("burger-line");
+  var nav = document.getElementsByClassName("part-nav")[0];
+  var c = 0;
+  burger.addEventListener("click", () => {
+    if (c == 0) {
+      line[0].style.rotate = "45deg";
+      line[1].style.display = "none";
+      line[2].style.rotate = "-45deg";
+      line[0].style.position = "absolute";
+      nav.style.display = "flex";
+      c = 1;
+    } else {
+      c = 0;
+      line[0].style.rotate = "0deg";
+      line[1].style.display = "flex";
+      line[2].style.rotate = "0deg";
+      line[0].style.position = "relative";
+      nav.style.display = "none";
+    }
+  });
+</script>

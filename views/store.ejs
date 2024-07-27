@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
+    <title>Byte Zone Store</title>
+  </head>
+  <body>
+    <%- include('./partials/navbar') %>
+    <main class="store-all">
+      <% list.forEach(itemType => { %>
+        <div class="line"></div>
+        <h3><%= itemType.type %></h3>
+        <div class="items">
+          <% itemType.item.forEach(element => { %>
+            <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
+              <div class="wrapper">
+                <div class="banner-image">
+                  <img src="<%= element.image %>" alt="<%= element.productName %>">
+                </div>
+              </div>
+              <h4><%= element.productName %></h4>
+            </a>
+          <% }) %>
+        </div>
+      
+      <% }) %>
+    </main>
+    <%- include('./partials/footer') %>
+    <%- include("./partials/scripts") %>
+  </body>
+</html>

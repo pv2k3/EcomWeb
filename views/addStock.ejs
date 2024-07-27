@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/stylesignup.css" />
+    <title>Add Stock</title>
+  </head>
+  <body>
+    <main>
+      <%- include('./partials/msg') %>
+      <form action="/data/products" method="post" enctype="multipart/form-data">
+        <div class="line-area">
+          <label for="type">Type </label>
+          <input type="text" name="type" required id="type" />
+        </div>
+
+        <div class="line-area">
+          <label for="productName">Product Name </label>
+          <input type="text" name="productName" required id="productName" />
+        </div>
+
+        <div class="line-area">
+          <label for="category">Category </label>
+          <input type="text" name="category" required id="category" />
+        </div>
+
+        <div class="line-area">
+          <label for="qty">Quantity </label>
+          <input type="number" name="qty" required id="qty" />
+        </div>
+
+        <div class="line-area">
+          <label for="price">Price </label>
+          <input type="number" name="price" required id="price" />
+        </div>
+
+        <div class="line-area">
+          <label for="image">Image </label>
+          <input type="file" name="image" required id="image" />
+        </div>
+
+        <div class="line-area">
+          <label for="processor">Processor </label>
+          <input type="text" name="processor" id="processor" />
+        </div>
+
+        <div class="line-area">
+          <label for="ram">RAM </label>
+          <input type="text" name="ram" id="ram" />
+        </div>
+
+        <div class="line-area">
+          <label for="storage">Storage </label>
+          <input type="text" name="storage" id="storage" />
+        </div>
+
+        <div class="line-area">
+          <label for="battery">Battery </label>
+          <input type="text" name="battery" id="battery" />
+        </div>
+
+        <div class="line-area">
+          <label for="graphicCard">Graphic Card</label>
+          <input type="text" name="graphicCard" id="graphicCard" />
+        </div>
+
+        <div class="line-area">
+          <label for="description">Description </label>
+          <input type="text" name="description" id="description" />
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

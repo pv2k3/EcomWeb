@@ -1,0 +1,106 @@
+.parent {
+  margin: 2rem auto;
+  background: url(../img/Logo_Byte.png) no-repeat fixed center;
+  background-size: clamp(20rem, 55vw, 30rem);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.card {
+  background-color: rgba(57, 62, 70, 0.75);
+  backdrop-filter: blur(10px);
+  width: 50%;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  border-radius: clamp(1.5rem, 3.5vw, 3rem);
+  transition: all 0.3s ease-in-out;
+  margin: 1rem auto;
+}
+.card:hover {
+  transform: scale(1.015);
+  box-shadow: 0.125rem 0.25rem 10px rgba(238, 238, 238, 0.377);
+}
+h1 {
+  color: var(--color3);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  text-shadow: 0px 0px 10px var(--color1);
+  margin-bottom: 1rem;
+}
+
+label{
+  font-size: clamp(1.25rem, 1.2vw, 1.75rem);
+  font-weight: 501;
+  color: var(--color4);
+}
+form {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.25rem, 2.5vw, 1rem);
+  flex-direction: column;
+  padding: 1rem 0rem;
+}
+input {
+  height: 2.125rem;
+  width: clamp(100px, 22vw, 300px);
+  background-color: rgba(34, 40, 49, 0.375);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(238, 238, 238, 0.5);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.5rem;
+}
+textarea {
+  height: 4.5rem;
+  width: clamp(160px, 22vw, 300px);
+  background-color: rgba(34, 40, 49, 0.375);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(238, 238, 238, 0.5);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.5rem;
+}
+textarea:hover,
+input:hover {
+  background-color: rgba(34, 40, 49, 0.625);
+}
+.line-area {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+button {
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  font-weight: 600;
+  color: var(--color4);
+  padding: 0.125rem 2rem;
+  background-color: transparent;
+  border: 0.25rem solid var(--color3);
+  border-radius: 0.5rem;
+}
+button:hover {
+  background-color: rgba(57, 62, 70, 0.411);
+  scale: 1.05;
+  transition: all 0.3s ease-in-out;
+}
+form a{
+    width: 77.5%;
+    color: var(--color5);
+    text-decoration: none;
+}
+.login-card{
+  border-radius: 2rem;
+}
+h4{
+  color: var(--color3);
+  font-size: 1.5rem;
+}
+@media screen and (width <= 992px) {
+}
+
+.container{
+  background-color: rgba(238, 238, 238, 0.4);
+  color: lime;
+}
