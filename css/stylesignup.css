@@ -24,10 +24,12 @@
 }
 h1 {
   color: var(--color3);
-  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  font-size: clamp(1.625rem, 3.5vw, 3rem);
   text-shadow: 0px 0px 10px var(--color1);
   margin-bottom: 1rem;
+  padding: 0rem 1rem;
 }
+
 
 label{
   font-size: clamp(1.25rem, 1.2vw, 1.75rem);
@@ -97,10 +99,29 @@ h4{
   color: var(--color3);
   font-size: 1.5rem;
 }
-@media screen and (width <= 992px) {
-}
+
 
 .container{
   background-color: rgba(238, 238, 238, 0.4);
   color: lime;
+  padding: 1rem;
+}
+@media screen and (width <= 600px) {
+  .card{
+    width: 90%;
+  }
+  .line-area{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .line-area input{
+    width: 100%;
+  }
+  .line-area textarea{
+    width: 100%;
+  }
 }
