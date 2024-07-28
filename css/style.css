@@ -68,6 +68,7 @@ body {
 .intro {
   margin-top: 0.5rem;
   height: 90vh;
+  min-height: 25rem;
   display: flex;
   justify-content: center;
   align-items: center;
