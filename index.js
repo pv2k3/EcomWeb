@@ -21,7 +21,6 @@ app.set("views", path.resolve("./views"));
 app.use(cookieParser())
 app.use(express.static(__dirname))
 app.use(express.urlencoded({extended: false}))
-app.use(require('express-status-monitor')());
 
 
 connectMongoDb(process.env.MNG_URL);
