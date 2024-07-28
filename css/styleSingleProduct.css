@@ -1,150 +1,177 @@
-:root{
-    --color1: #222831;
-    --color2: #393E46;
-    --color3: #1FE7F1;
-    --color4: #eeeeee;
-    --color5: #e7b597;
+:root {
+  --color1: #222831;
+  --color2: #393e46;
+  --color3: #1fe7f1;
+  --color4: #eeeeee;
+  --color5: #e7b597;
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-::selection{
-    color: #222831;
-    background-color: #00ADB5;
+::selection {
+  color: #222831;
+  background-color: #00adb5;
 }
-body{
-    background-color: var(--color1);
+body {
+  background-color: var(--color1);
 }
-.navbar{
-    /* background-color: var(--color2); */
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    padding: 1rem;
-    align-items: center;
-    margin: auto;
+.navbar {
+  /* background-color: var(--color2); */
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem;
+  align-items: center;
+  margin: auto;
 }
-.navbar a{
-    color: var(--color3);
-    font-weight: 500;
-    font-size: 1.75rem;
-    text-decoration: none;
-    padding: 0.625rem 1rem;
-    border-radius: 1.5rem;
-    display: flex;
-    align-items: center;
-}
-
-.navbar a > img{
-    height: 2.25rem;
-    object-fit: contain;
+.navbar a {
+  color: var(--color3);
+  font-weight: 500;
+  font-size: 1.75rem;
+  text-decoration: none;
+  padding: 0.625rem 1rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
-.navbar a:hover{
-    background-color: rgba(57, 62, 70, 0.322);
+.navbar a > img {
+  height: 2.25rem;
+  object-fit: contain;
 }
-h2{
-    font-size: 2rem;
-    color: var(--color3);
-    padding: 0.5rem;
+
+.navbar a:hover {
+  background-color: rgba(57, 62, 70, 0.322);
 }
-p{
-    padding: 0.5rem 1rem;
-    font-size: 1.125rem;
-    color: var(--color4)
+h2 {
+  font-size: 2rem;
+  color: var(--color3);
+  padding: 0.5rem;
 }
-h4{
-    color: var(--color5);
-    font-size: 1.5rem;
+p {
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+  color: var(--color4);
 }
-.img{
-    height: 100%;
-    width: 30%;
-    margin-left: 2rem;
+h4 {
+  color: var(--color5);
+  font-size: 1.5rem;
 }
-.img img{
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
-    border-radius: 1rem;
+.img {
+  height: 100%;
+  width: 30%;
+  margin-left: 2rem;
 }
-.item-card{
-    height: 50%;
-    width: 90%;
-    padding: 1rem;
-    margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color2);
-    border-radius: 3rem;
+.img img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
 }
-.text-section{
-    width: 60%;
-    padding: 2rem;
+.item-card {
+  height: 50%;
+  width: 90%;
+  padding: 1rem;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color2);
+  border-radius: 3rem;
 }
-ul{
-    text-decoration: none;
+.text-section {
+  width: 60%;
+  padding: 2rem;
 }
-li{
-    padding: 0rem 1rem;
-    list-style: none;
-    display: flex;
-    align-items: center;
+ul {
+  text-decoration: none;
+}
+li {
+  padding: 0rem 1rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .buy {
-    padding: 2rem;
+  padding: 2rem;
 }
 .buy a {
-    color: var(--color3);
-    text-decoration: none;
-    padding: 1rem;
-    border: 2px solid var(--color3);
-    font-weight: 900;
-    border-radius: 2rem;
-    transition: all 0.2s ease-in-out;
+  color: var(--color3);
+  text-decoration: none;
+  padding: 1rem;
+  border: 2px solid var(--color3);
+  font-weight: 900;
+  border-radius: 2rem;
+  transition: all 0.2s ease-in-out;
 }
-.text-section section{
-    display: flex;
-    justify-content: space-around;
+.text-section section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .buyButton {
-    color: var(--color3);
-    text-decoration: none;
-    padding: 1rem 2rem;
-    border: 2px solid var(--color3);
-    font-weight: 900;
-    border-radius: 2rem;
-    transition: all 0.2s ease-in-out;
-    background-color: transparent;
-    margin: 1rem;
+  color: var(--color3);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border: 2px solid var(--color3);
+  font-weight: 900;
+  border-radius: 2rem;
+  transition: all 0.2s ease-in-out;
+  background-color: transparent;
+  margin: 1rem;
 }
-.buyButton:hover , .buy a:hover{
-    border: none;
-    border: 2px solid var(--color2);
-    color: var(--color2);
-    background-color: var(--color3);
+.buyButton:hover,
+.buy a:hover {
+  border: none;
+  border: 2px solid var(--color2);
+  color: var(--color2);
+  background-color: var(--color3);
 }
-form{
+form {
+  padding: 1rem;
+  color: var(--color5);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.userDetail {
+  margin-top: 1rem;
+}
+input {
+  background-color: transparent;
+  border: 2px solid var(--color3);
+  padding: 0.5rem;
+  width: 4rem;
+  color: white;
+  font-weight: bold;
+}
+#price {
+  display: none;
+}
+
+@media screen and (width <= 600px) {
+  .item-card {
+    flex-direction: column;
+  }
+  .img{
+    height: fit-content;
+    width: 100%;
+    margin: 0px;
+  }
+  .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text-section{
+    width: 100%;
     padding: 1rem;
-    color: var(--color5);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-.userDetail{
-    margin-top: 1rem;
-}
-input{
-    background-color: transparent;
-    border: 2px solid var(--color3);
-    padding: 0.5rem;
-    width: 4rem;
-    color: white;
-    font-weight: bold;
-}
-#price{
-    display: none;
+  }
+  .text-section li{
+    flex-wrap: wrap;
+  }
+  
 }
