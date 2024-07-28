@@ -19,7 +19,7 @@ const { getUser } = require("../services/auth");
 const staticRouter = express.Router();
 
 staticRouter
-    .get("/home", (req, res) => {
+    .get("/", (req, res) => {
         openPage(req, res, "home", "")
     })
     .get("/account", async (req, res) => {
