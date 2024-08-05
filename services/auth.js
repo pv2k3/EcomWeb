@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
-const secret = "pv2k32810"
+const secret = process.env.SECRET_KEY || "pv2k32810"
 
 function setUser(user){
     const payload = {
