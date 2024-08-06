@@ -90,11 +90,11 @@
           <% item2.forEach(element => { %>
             <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
               <div class="content">
-                <p><%= element.name %></p>
+                <p><%= element._doc.name %></p>
                 <p><%= element._doc.price * element._doc.qty %></p>
                 <p><%= element._doc.qty %></p>
               </div>
-              <img src="<%= element.image %>" alt="<%= element.productName %>">
+              <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
             </a>  
           <% }) %>
         </main>

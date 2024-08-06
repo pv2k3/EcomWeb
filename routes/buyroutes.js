@@ -55,34 +55,39 @@ router.route("/")
 
         const user = getUser(userUid);
 
-        if(!quantity || !product || !podType) return res.status(400);
+        if (!quantity || !product || !podType) return res.status(400);
 
         if (podType == "laptop") {
-            await Laptop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Laptop.updateOne({ _id: product }, { $inc: { qty: -quantity } });
             productDetails = await Laptop.findById(product)
         } else if (podType == "desktop") {
-            await Desktop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Desktop.updateOne({ _id: product }, { $inc: { qty: -quantity } });
             productDetails = await Desktop.findById(product)
         } else if (podType == "accessory") {
-            await Accessory.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Accessory.updateOne({ _id: product }, { $inc: { qty: -quantity } });
             productDetails = await Accessory.findById(product)
         }
 
 
-        await User.updateOne({email: user.email}, {$push: {itemsBought: {
-            id: product, 
-            itemType: podType,
-            qty: quantity,
-            name: productDetails.productName,
-            image: productDetails.image,
-            price: productDetails.price
-        }}})
+        await User.updateOne({ email: user.email }, {
+            $push: {
+                itemsBought: {
+                    id: product,
+                    itemType: podType,
+                    qty: quantity,
+                    name: productDetails.productName,
+                    image: productDetails.image,
+                    price: productDetails.price
+                }
+            }
+        })
         res.redirect("/store")
     })
 
-router.get("/addToCart", async (req, res)=>{
+router.get("/addToCart", async (req, res) => {
     const product = req.query.item;
     const podType = req.query.type;
+    var productDetails;
     if (podType == "laptop") {
         productDetails = await Laptop.findById(product);
     } else if (podType == "desktop") {
@@ -93,11 +98,18 @@ router.get("/addToCart", async (req, res)=>{
     const userUid = req.cookies.uid;
     const user = getUser(userUid);
 
-    await User.updateOne({email: user.email}, {$push: {itemsInCart: {
-        id: product, 
-        itemType: podType,
-        qty: 1
-    }}})
+    await User.updateOne({ email: user.email }, {
+        $push: {
+            itemsInCart: {
+                id: product,
+                itemType: podType,
+                qty: 1,
+                name: productDetails.productName,
+                image: productDetails.image,
+                price: productDetails.price
+            }
+        }
+    })
 
     res.redirect("/store");
 })
