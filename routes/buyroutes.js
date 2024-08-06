@@ -51,24 +51,31 @@ router.route("/")
         const product = req.query.item;
         const podType = req.query.type;
         const userUid = req.cookies?.uid;
+        var productDetails;
 
         const user = getUser(userUid);
 
         if(!quantity || !product || !podType) return res.status(400);
 
         if (podType == "laptop") {
-            productDetails = await Laptop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Laptop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            productDetails = await Laptop.findById(product)
         } else if (podType == "desktop") {
-            productDetails = await Desktop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Desktop.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            productDetails = await Desktop.findById(product)
         } else if (podType == "accessory") {
-            productDetails = await Accessory.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            await Accessory.updateOne({_id: product}, {$inc: {qty: -quantity}});
+            productDetails = await Accessory.findById(product)
         }
 
 
         await User.updateOne({email: user.email}, {$push: {itemsBought: {
             id: product, 
             itemType: podType,
-            qty: quantity
+            qty: quantity,
+            name: productDetails.productName,
+            image: productDetails.image,
+            price: productDetails.price
         }}})
         res.redirect("/store")
     })

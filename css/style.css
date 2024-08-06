@@ -191,10 +191,8 @@ li::before {
   padding: 1rem;
 }
 .sect .content{
-  border: 2px solid var(--color3);
   padding: 1rem;
   border-radius: 1rem;
-  margin-top: 0.5rem;
 }
 .container:hover {
   transform: scale(1.025);

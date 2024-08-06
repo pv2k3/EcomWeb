@@ -9,9 +9,8 @@
     <title>Byte Zone</title>
   </head>
   <body>
-    <%- include('./partials/navbar') %>
-    <%- include('./partials/msg') %>
-    
+    <%- include('./partials/navbar') %> <%- include('./partials/msg') %>
+
     <div class="parent">
       <% if (locals.type == "signup") { %>
       <main class="sign-up-card card">
@@ -72,32 +71,37 @@
           <button type="submit">Log Out</button>
         </form>
         <% if (locals.item) { %>
-          <main class="sect">
-            <h4>Bought Record</h4>
+        <main class="sect">
+          <h4>Bought Record</h4>
+          <% item.forEach(element => { %>
+          <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
             <div class="content">
-                <% item.forEach(element => { %>
-                  <p> <%= element._doc.productName %> </p>
-                  <p> <%= element._doc.price %> </p>
-                  <p> <%= element.bought_qty %> </p>
-                <% }) %>
+              <p><%= element._doc.name %></p>
+              <p><%= element._doc.price * element._doc.qty %></p>
+              <p><%= element._doc.qty %></p>
             </div>
-          </main>
-        <% } %>
-        <% if (locals.item2) { %>
-          <main class="sect">
-            <h4>Items In Cart</h4>
-            <div class="content">
-                <% item2.forEach(element => { %>
-                  <p> <%= element._doc.productName %> </p>
-                  <p> <%= element._doc.price %> </p>
-                <% }) %>
-            </div>
-          </main>
+            <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+          </a>
+          <% }) %>
+        </main>
+        <% } %> <% if (locals.item2) { %>
+        <main class="sect">
+          <h4>Items In Cart</h4>
+          <% item2.forEach(element => { %>
+            <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
+              <div class="content">
+                <p><%= element.name %></p>
+                <p><%= element._doc.price * element._doc.qty %></p>
+                <p><%= element._doc.qty %></p>
+              </div>
+              <img src="<%= element.image %>" alt="<%= element.productName %>">
+            </a>  
+          <% }) %>
+        </main>
         <% } %>
       </main>
       <% } %>
     </div>
-    <%- include('./partials/footer') %>
-    <%- include("./partials/scripts") %>
+    <%- include('./partials/footer') %> <%- include("./partials/scripts") %>
   </body>
 </html>

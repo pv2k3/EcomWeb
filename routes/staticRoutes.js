@@ -38,14 +38,12 @@ staticRouter
                 _id: id,
             });
 
-            const result2 = await getAllUserBoughtOrCart(userRecord.itemsInCart); 
-            const result = await getAllUserBoughtOrCart(userRecord.itemsBought);
-
+            
             res.render("account", {
                 type: "none",
                 user: userRecord,
-                item: result,
-                item2: result2
+                item2: userRecord.itemsInCart,
+                item: userRecord.itemsBought
             })
         }
     })

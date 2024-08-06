@@ -40,21 +40,47 @@ const userSchema = mongoose.Schema({
             type: Number,
             required: true
         }
+        ,
+        name: {
+            type: String,
+            required: true
+        },
+        image: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        }
     }],
     role : {
         type: String, 
         default: "NORMAL"
     },
     itemsBought: [{
-        itemType: {
-            type: String,
-            required: true
-        },
         id: {
             type: String,
             required: true
         },
+        itemType: {
+            type: String,
+            required: true
+        },
         qty: {
+            type: Number,
+            required: true
+        }
+        ,
+        name: {
+            type: String,
+            required: true
+        },
+        image: {
+            type: String,
+            required: true
+        },
+        price: {
             type: Number,
             required: true
         }

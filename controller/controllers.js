@@ -44,16 +44,13 @@ async function loginUser(req, res) {
     const userRecord = await User.findOne({
         email: body.email
     });
+
     if (!userRecord) {
         return res.render("account", {
             type: "login",
             msg: "Email or Password is Wrong",
         })
     }
-
-    var result = await getAllUserBoughtOrCart(userRecord.itemsBought);
-    const result2 = await getAllUserBoughtOrCart(userRecord.itemsInCart);
-
 
     const hashedPassword = crypto.createHmac("sha256", userRecord.salt).update(body.password).digest("hex");
 
@@ -70,8 +67,8 @@ async function loginUser(req, res) {
     return res.render("account", {
         user: userRecord,
         type: "user",
-        item: result,
-        item2: result2,
+        item2: userRecord.itemsInCart,
+        item: userRecord.itemsBought,
         msg: "Login is Successful"
     });
 }
