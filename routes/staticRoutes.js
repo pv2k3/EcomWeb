@@ -49,6 +49,11 @@ staticRouter
             })
         }
     })
+    .get("/account/login", (req, res)=>{
+        res.render("account", {
+            type: "login"
+        })
+    })
     .post("/account/login", async (req, res) => {
         loginUser(req, res);
     })
