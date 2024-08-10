@@ -80,7 +80,9 @@
               <p><%= element._doc.price * element._doc.qty %></p>
               <p><%= element._doc.qty %></p>
             </div>
-            <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+            <div class="content-image">
+              <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+            </div>
           </a>
           <% }) %>
         </main>
@@ -94,7 +96,9 @@
                 <p><%= element._doc.price * element._doc.qty %></p>
                 <p><%= element._doc.qty %></p>
               </div>
-              <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+              <div class="content-image">
+                <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+              </div>
             </a>  
           <% }) %>
         </main>

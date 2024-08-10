@@ -113,8 +113,14 @@ a{
 }
 .sect a img{
   object-fit: contain;
-  height: 120px;
+  height: 100px;
   border-radius: 1rem;
+}
+.content{
+  width: 50%;
+}
+.content-image{
+  width: 40%;
 }
 .container{
   background-color: rgba(238, 238, 238, 0.4);
@@ -122,9 +128,6 @@ a{
   padding: 1rem;
 }
 @media screen and (width <= 600px) {
-  .card{
-    width: 90%;
-  }
   .line-area{
     width: 90%;
     display: flex;
