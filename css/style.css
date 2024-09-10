@@ -209,6 +209,7 @@ li::before {
   border: 1px solid rgba(255, 255, 255, 0.25);
   background-color: #f6f6f6;
   padding: 0.25rem;
+  overflow: hidden;
 }
 
 .banner-image img {
