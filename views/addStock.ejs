@@ -9,6 +9,7 @@
   </head>
   <body>
     <main>
+      <h1 style="display: flex;justify-content: center;">Add Items</h1>
       <%- include('./partials/msg') %>
       <form action="/data/products" method="post" enctype="multipart/form-data">
         <div class="line-area">
@@ -28,12 +29,12 @@
 
         <div class="line-area">
           <label for="qty">Quantity </label>
-          <input type="number" name="qty" required id="qty" />
+          <input type="number" min="0" name="qty" required id="qty" />
         </div>
 
         <div class="line-area">
           <label for="price">Price </label>
-          <input type="number" name="price" required id="price" />
+          <input type="number" min="0" name="price" required id="price" />
         </div>
 
         <div class="line-area">

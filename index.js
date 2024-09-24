@@ -8,6 +8,7 @@ const {connectMongoDb} = require("./connection")
 const router = require("./routes/routes");
 const staticRouter = require("./routes/staticRoutes")
 const buyRouter = require("./routes/buyroutes");
+const admRouter = require("./routes/adminRoutes")
 const {
     restrictToUserLogin,
     restrictToUserAdmin
@@ -28,6 +29,7 @@ connectMongoDb(process.env.MNG_URL);
 app.use("/data", restrictToUserAdmin, router);
 app.use("/", staticRouter);
 app.use("/buy", restrictToUserLogin, buyRouter);
+app.use("/adm", restrictToUserAdmin, admRouter);
 
 app.listen(process.env.PORT, ()=>{
     console.log("Server Started")

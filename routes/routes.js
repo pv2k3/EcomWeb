@@ -26,8 +26,12 @@ const {
 const router = express.Router();
 
 router.get("/userRecord", async (req, res) => {
-    const allUsers = await User.find();
-    res.json(allUsers);
+    try {
+        const allUsers = await User.find();
+        res.status(200).json(allUsers);
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
 })
 
 router.route("/products")
