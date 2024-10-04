@@ -90,9 +90,6 @@ staticRouter
             description: productDetails.description
         });
     })
-    .get("/addItem", (req, res) => {
-        res.render("addStock")
-    })
     .post("/logout", (req, res)=>{
         res.clearCookie("uid").redirect("/account")
     })

@@ -72,6 +72,13 @@ input:hover {
   align-items: center;
   grid-template-columns: 1fr 1.5fr;
   gap: 2rem;
+  width: 80%;
+}
+.line-area input{
+  width: 90%;
+}
+.line-area textarea{
+  width: 90%;
 }
 button {
   font-size: clamp(1.25rem, 2.1vw, 1.75rem);

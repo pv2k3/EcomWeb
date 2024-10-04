@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/adminStyle.css" />
+    <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
+    <title>Byte Zone</title>
+  </head>
+  <body>
+    <header class="intro">
+      <!-- <%- include('./partials/navbar') %> -->
+      <nav class="adminNav">
+        <a href="/adm/addItem" class="adminNavLi">Add Item</a>
+        <a href="#usrRecord" class="adminNavLi">User Record</a>
+        <a href="/adm" class="adminNavLi">Contact Request</a>
+        <a href="/adm" class="adminNavLi">Stock remain</a>
+      </nav>
+    </header>
+    <main id="usrRecord">
+      <button onclick="handleUser()">Return all users</button>
+            
+    </main>
+    <p>This is the admin page</p>
+    <%- include("./partials/scripts") %>
+    <%- include('./partials/fetchScript') %>
+  </body>
+</html>

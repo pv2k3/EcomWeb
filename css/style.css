@@ -233,9 +233,22 @@ li::before {
   color: var(--color5);
   text-transform: uppercase;
 }
+
+ .title img{
+  height: 3rem;
+  aspect-ratio: 1;
+ }
+
+.title{
+  display: none ;
+}
+
 @media screen and (width <= 992px) {
 }
 @media screen and (width <= 768px) {
+  .title{
+    display: flex;
+  }
   .burger {
     opacity: 1;
   }
@@ -244,7 +257,7 @@ li::before {
   }
   .navbar {
     gap: 1rem;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-top: 0.5rem;
     position: relative;
     z-index: 3;
