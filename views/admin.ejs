@@ -9,39 +9,20 @@
   </head>
   <body>
     <header class="intro">
-        <!-- <%- include('./partials/navbar') %> -->
-        <nav class="adminNav">
-            <a href="/adm/addItem" class="adminNavLi">Add Item</a>
-            <a href="#usrRecord" class="adminNavLi">User Record</a>
-            <a href="/adm" class="adminNavLi">Contact Request</a>
-            <a href="/adm" class="adminNavLi">Stock remain</a>
-        </nav>
+      <!-- <%- include('./partials/navbar') %> -->
+      <nav class="adminNav">
+        <a href="/adm/addItem" class="adminNavLi">Add Item</a>
+        <a href="#usrRecord" class="adminNavLi">User Record</a>
+        <a href="/adm" class="adminNavLi">Contact Request</a>
+        <a href="/adm" class="adminNavLi">Stock remain</a>
+      </nav>
     </header>
     <main id="usrRecord">
       <button onclick="handleUser()">Return all users</button>
+            
     </main>
     <p>This is the admin page</p>
     <%- include("./partials/scripts") %>
-    <script>
-      async function handleUser() {
-
-        try {
-          
-                  const users = await fetch("localhost:8000/data/userRecord?API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjFlOWU5ODkxMDZiZGEwYjRhOWJkMiIsImVtYWlsIjoib3YzNjQ0MTExQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImFkZHJlc3MiOiJsa28iLCJjb250YWN0IjoiOTExODAxMTUyMiIsImlhdCI6MTcyNzA5Mjc2OH0.qn5p1A1c_f-1Xj57x_ccUXvZZYJpbBKa5wxP2ErGm5I", {
-                    method: "get",
-                    headers: {"Content-Type": "application/json"},
-                    mode: "no-cors"
-                  });
-                  
-                  const da = users.json();
-                  console.log(da);
-          
-        } catch (error) {
-          console.log(error)
-        }
-      }
-
-
-    </script>
+    <%- include('./partials/fetchScript') %>
   </body>
 </html>

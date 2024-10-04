@@ -1,0 +1,23 @@
+
+<script>
+    const userRecordDom = document.getElementById("usrRecord");
+    const allUser = create
+    async function handleUser() {
+      var data;
+      try {
+        const users = await fetch(
+          "http://localhost:8000/data/userRecord?API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjFlOWU5ODkxMDZiZGEwYjRhOWJkMiIsImVtYWlsIjoib3YzNjQ0MTExQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImFkZHJlc3MiOiJsa28iLCJjb250YWN0IjoiOTExODAxMTUyMiIsImlhdCI6MTcyNzA5Mjc2OH0.qn5p1A1c_f-1Xj57x_ccUXvZZYJpbBKa5wxP2ErGm5I",
+          {
+            mode: "cors", 
+            headers: {
+              "Content-type": "appilication/json"
+            }
+          }
+        );
+        data = await users.json();
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(data);
+    }
+  </script>
