@@ -252,8 +252,10 @@ li::before {
   margin: 0px auto;
 }
 
-.navigateType h2{
-  padding: 0rem;
+
+.navigateType h3{
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
 }
 
 @media screen and (width <= 992px) {
