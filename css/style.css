@@ -183,13 +183,13 @@ li::before {
   width: 200px;
   text-decoration: none;
 }
-.sect{
+.sect {
   border-radius: 1rem;
   border: 2px solid var(--color4);
   margin-top: 1rem;
   padding: 1rem;
 }
-.sect .content{
+.sect .content {
   padding: 1rem;
   border-radius: 1rem;
 }
@@ -218,7 +218,7 @@ li::before {
   width: 100%;
 }
 
-.notification{
+.notification {
   background-color: green;
   padding: 2rem;
   margin: 1rem auto;
@@ -234,25 +234,38 @@ li::before {
   text-transform: uppercase;
 }
 
- .title img{
+.title img {
   height: 3rem;
   aspect-ratio: 1;
- }
+}
 
-.title{
-  display: none ;
+.title {
+  display: none;
+}
+
+
+.navigateType {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 90%;
+  margin: 0px auto;
+}
+
+.navigateType h2{
+  padding: 0rem;
 }
 
 @media screen and (width <= 992px) {
 }
 @media screen and (width <= 768px) {
-  .title{
+  .title {
     display: flex;
   }
   .burger {
     opacity: 1;
   }
-  .parent .card{
+  .parent .card {
     width: 90%;
   }
   .navbar {
@@ -277,30 +290,28 @@ li::before {
   .intro {
     height: 60vh;
   }
-  
 }
 @media screen and (width <= 600px) {
-  .items{
+  .items {
     padding: 0.625rem 1rem;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, 300px);
   }
-  .container{
+  .container {
     width: 300px;
     height: 150px;
     flex-direction: row;
     justify-content: space-between;
   }
-  .wrapper{
+  .wrapper {
     width: 100px;
     height: 125px;
   }
-  .banner-image{
+  .banner-image {
     width: 100px;
     height: 125px;
   }
-  .container h4{
+  .container h4 {
     width: 150px;
   }
-  
 }
