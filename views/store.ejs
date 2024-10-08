@@ -9,26 +9,37 @@
   </head>
   <body>
     <%- include('./partials/navbar') %>
+
+    <nav class="navigateType">
+      <div class="line"></div>
+      <% list.forEach(element => { %>
+       <h2 onclick="get(this)"> <%= element.type %> </h2>
+      <% }) %>
+    </nav>
     <main class="store-all">
       <% list.forEach(itemType => { %>
-        <div class="line"></div>
-        <h3><%= itemType.type %></h3>
-        <div class="items">
-          <% itemType.item.forEach(element => { %>
-            <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
-              <div class="wrapper">
-                <div class="banner-image">
-                  <img src="<%= element.image %>" alt="<%= element.productName %>">
+        
+        <div id= <%= itemType.type %> >
+          <div class="line"></div>
+          <h3><%= itemType.type %></h3>
+          <div class="items">
+            <% itemType.item.forEach(element => { %>
+              <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
+                <div class="wrapper">
+                  <div class="banner-image">
+                    <img src="<%= element.image %>" alt="<%= element.productName %>">
+                  </div>
                 </div>
-              </div>
-              <h4><%= element.productName %></h4>
-            </a>
-          <% }) %>
+                <h4><%= element.productName %></h4>
+              </a>
+            <% }) %>
+          </div>
         </div>
       
       <% }) %>
     </main>
     <%- include('./partials/footer') %>
     <%- include("./partials/scripts") %>
+    <%- include("./partials/storeSwitchItemType") %>
   </body>
 </html>

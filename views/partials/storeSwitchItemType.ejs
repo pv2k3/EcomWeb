@@ -1,0 +1,31 @@
+<script>
+  const section = document.getElementById("laptop");
+  const ls = ["laptop", "desktop", "accessory"];
+
+  for (let i = 0; i < ls.length; i++) {
+    if (ls[i] != "laptop") {
+      const hide = document.getElementById(ls[i]);
+      hide.style.height = "0";
+      hide.style.opacity = "0";
+    }
+  }
+
+  function get(params) {
+    const node = params.innerText;
+
+    const section = document.getElementById(node);
+
+    setTimeout(() => {
+      section.style.opacity = "1";
+      section.style.height = "fit-content";
+
+      for (let i = 0; i < ls.length; i++) {
+        if (ls[i] != node) {
+          const hide = document.getElementById(ls[i]);
+          hide.style.height = "0";
+          hide.style.opacity = "0";
+        }
+      }
+    }, 350);
+  }
+</script>
