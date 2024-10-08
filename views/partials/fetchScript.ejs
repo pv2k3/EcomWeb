@@ -1,7 +1,6 @@
 
 <script>
     const userRecordDom = document.getElementById("usrRecord");
-    const allUser = create
     async function handleUser() {
       var data;
       try {
@@ -18,6 +17,28 @@
       } catch (error) {
         console.log(error);
       }
+      return data;
+    }
+
+    async function getData() {
+      const data = await handleUser();
+      
+      var cont = "";
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        cont += `<section><pre>${element.userName}</pre><pre>${element.email}</pre></section>`;
+      }
+
+      const usrRecord = document.getElementById("usrRecord");
+
+      usrRecord.innerHTML += cont;
+
+      console.log(cont);
+
+
       console.log(data);
     }
+
+
+
   </script>
