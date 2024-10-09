@@ -8,21 +8,45 @@
     <title>Byte Zone</title>
   </head>
   <body>
-    <header class="intro">
-      <!-- <%- include('./partials/navbar') %> -->
-      <nav class="adminNav">
-        <a href="/adm/addItem" class="adminNavLi">Add Item</a>
-        <a href="#usrRecord" class="adminNavLi">User Record</a>
-        <a href="/adm" class="adminNavLi">Contact Request</a>
-        <a href="/adm" class="adminNavLi">Stock remain</a>
-      </nav>
-    </header>
-    <main id="usrRecord">
-      <button onclick="getData()">Return all users</button>
-            
+    <main class="parentAll">
+      <aside class="navigate">
+        <h1>ByteZone</h1>
+        <section class="nav">
+          <ul>
+            <li>Dashboard</li>
+            <li>Products</li>
+            <li>Users</li>
+            <li>Contact Requests</li>
+            <li>Feedbacks</li>
+          </ul>
+          <div class="line"></div>
+          <ul>
+            <li>Sales</li>
+            <li>Order-Lists</li>
+            <li>Product Stocks</li>
+            <li>Log Out</li>
+          </ul>
+        </section>
+      </aside>
+      <main class="content">
+        <nav class="top">
+          <section class="partNav">
+            <button>Notifications</button>
+            <h4>User</h4>
+            <% if (locals.name) { %>
+              <div class="cardSmallNav">
+               <p id="name"><%= name.userName %></p>
+                <p id="role">ADMIN</p>
+              </div>
+            <% } else { %>
+             <div class="cardSmallNav">
+                <p id="name">No Name</p>
+                <p id="role">ADMIN</p>
+             </div>
+            <% } %>
+          </section>
+        </nav>
+      </main>
     </main>
-    <p>This is the admin page</p>
-    <%- include("./partials/scripts") %>
-    <%- include('./partials/fetchScript') %>
   </body>
 </html>
