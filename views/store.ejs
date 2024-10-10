@@ -13,7 +13,7 @@
     <nav class="navigateType">
       <div class="line"></div>
       <% list.forEach(element => { %>
-       <h2 onclick="get(this)"> <%= element.type %> </h2>
+       <h4 onclick="get(this)" id= <%= element.type + "Head" %> > <%= element.type.toUpperCase() %> </h4>
       <% }) %>
     </nav>
     <main class="store-all">
@@ -21,7 +21,6 @@
         
         <div id= <%= itemType.type %> >
           <div class="line"></div>
-          <h3><%= itemType.type %></h3>
           <div class="items">
             <% itemType.item.forEach(element => { %>
               <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>

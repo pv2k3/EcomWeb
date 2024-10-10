@@ -4,6 +4,7 @@
   --color3: #1fe7f1;
   --color4: #eeeeee;
   --color5: #e7b597;
+  --color6: #4880FF;
 }
 * {
   margin: 0;
@@ -252,8 +253,12 @@ li::before {
   margin: 0px auto;
 }
 
-.navigateType h2{
-  padding: 0rem;
+
+.navigateType h4{
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--color6);
 }
 
 @media screen and (width <= 992px) {
