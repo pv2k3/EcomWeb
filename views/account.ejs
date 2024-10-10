@@ -75,13 +75,13 @@
           <h4>Bought Record</h4>
           <% item.forEach(element => { %>
           <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
+            <div class="content-image">
+              <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+            </div>
             <div class="content">
               <p><%= element._doc.name %></p>
               <p><%= element._doc.price * element._doc.qty %></p>
               <p><%= element._doc.qty %></p>
-            </div>
-            <div class="content-image">
-              <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
             </div>
           </a>
           <% }) %>
@@ -91,14 +91,15 @@
           <h4>Items In Cart</h4>
           <% item2.forEach(element => { %>
             <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
+              <div class="content-image">
+                <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
+              </div>
               <div class="content">
                 <p><%= element._doc.name %></p>
                 <p><%= element._doc.price * element._doc.qty %></p>
                 <p><%= element._doc.qty %></p>
               </div>
-              <div class="content-image">
-                <img src="<%= "." + element.image %>" alt="<%= element.productName %>">
-              </div>
+              
             </a>  
           <% }) %>
         </main>

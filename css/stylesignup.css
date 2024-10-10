@@ -30,8 +30,7 @@ h1 {
   padding: 0rem 1rem;
 }
 
-
-label{
+label {
   font-size: clamp(1.25rem, 1.2vw, 1.75rem);
   font-weight: 501;
   color: var(--color4);
@@ -74,10 +73,10 @@ input:hover {
   gap: 2rem;
   width: 80%;
 }
-.line-area input{
+.line-area input {
   width: 90%;
 }
-.line-area textarea{
+.line-area textarea {
   width: 90%;
 }
 button {
@@ -94,48 +93,51 @@ button:hover {
   scale: 1.05;
   transition: all 0.3s ease-in-out;
 }
-form a{
-    width: 77.5%;
-    color: var(--color5);
-    text-decoration: none;
+form a {
+  width: 77.5%;
+  color: var(--color5);
+  text-decoration: none;
 }
-.login-card{
+.login-card {
   border-radius: 2rem;
 }
-h4{
+h4 {
   color: var(--color3);
   font-size: 1.5rem;
 }
 
-a{
+a {
   text-decoration: none;
 }
-.sect a{
-  display: flex;
+.sect a {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-auto-flow: row;
   justify-content: space-around;
   border: 2px solid var(--color3);
   padding: 1rem;
   border-radius: 1rem;
   margin-top: 0.5rem;
 }
-.sect a img{
-  object-fit: contain;
-  height: 100px;
+.sect a img {
+  min-height: 100px;
+  max-height: 120px;
   border-radius: 1rem;
 }
-.content{
-  width: 50%;
+.content {
+  /* width: 70%; */
 }
-.content-image{
-  width: 40%;
+.content-image {
+  /* width: 30%; */
+  object-fit: cover;
 }
-.container{
+.container {
   background-color: rgba(238, 238, 238, 0.4);
   color: lime;
   padding: 1rem;
 }
 @media screen and (width <= 600px) {
-  .line-area{
+  .line-area {
     width: 90%;
     display: flex;
     justify-content: space-between;
@@ -143,10 +145,16 @@ a{
     gap: 0.5rem;
     align-items: flex-start;
   }
-  .line-area input{
+  .line-area input {
     width: 100%;
   }
-  .line-area textarea{
+  .line-area textarea {
     width: 100%;
+  }
+  .sect a {
+    padding: 0.5rem;
+  }
+  .card{
+    min-width: 400px;
   }
 }
