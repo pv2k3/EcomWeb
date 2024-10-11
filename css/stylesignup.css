@@ -12,7 +12,7 @@
 .card {
   background-color: rgba(57, 62, 70, 0.75);
   backdrop-filter: blur(10px);
-  width: 50%;
+  width: 70%;
   padding: clamp(1rem, 2.5vw, 2rem);
   border-radius: clamp(1.5rem, 3.5vw, 3rem);
   transition: all 0.3s ease-in-out;
@@ -110,8 +110,10 @@ a {
   text-decoration: none;
 }
 .sect a {
+  position: relative;
+  z-index: 0;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr 0.5fr;
   grid-auto-flow: row;
   justify-content: space-around;
   border: 2px solid var(--color3);
@@ -119,11 +121,18 @@ a {
   border-radius: 1rem;
   margin-top: 0.5rem;
 }
-.sect a img {
+a img {
   min-height: 100px;
-  max-height: 120px;
+  max-height: 140px;
   border-radius: 1rem;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  background-color: white;
 }
+
 .content {
   /* width: 70%; */
 }
@@ -154,7 +163,18 @@ a {
   .sect a {
     padding: 0.5rem;
   }
-  .card{
+  .card {
     min-width: 400px;
   }
+}
+
+.del img {
+  position: relative;
+  z-index: 1;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+}
+.del {
+  border: none;
 }

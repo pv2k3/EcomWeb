@@ -20,4 +20,40 @@
       nav.style.display = "none";
     }
   });
+
+  window.addEventListener("load", () => {
+    try {
+      var elem = document.getElementsByClassName("notification")[0];
+      if (elem.innerText === "Email or Password is Wrong") {
+        elem.style.backgroundColor = "rgb(100, 0, 0)";
+      } else {
+        elem.style.backgroundColor = "green";
+      }
+    } catch (error) {
+      console.log("No login or sign up detected");
+    }
+  });
+
+  async function remove(params) {
+    const tag = params.parentNode;
+
+    tag.addEventListener("click", function (event) {
+      event.preventDefault();
+    });
+
+    tag.remove();
+
+    const URL = tag.getAttribute("href");
+
+    const resp = await fetch(URL, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 </script>

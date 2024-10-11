@@ -90,6 +90,17 @@ staticRouter
             description: productDetails.description
         });
     })
+    .delete("/store/singleProduct", async (req, res)=>{
+        const product = req.query.item;
+        const podType = req.query.type;
+
+        const userId = getUser(req.cookies.uid).id;
+
+        await User.findByIdAndUpdate(userId, {
+            $pull: {itemsInCart: {itemType: podType, id: product}}
+        })
+
+    })
     .post("/logout", (req, res)=>{
         res.clearCookie("uid").redirect("/account")
     })

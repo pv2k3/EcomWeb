@@ -9,7 +9,8 @@
     <title>Byte Zone</title>
   </head>
   <body>
-    <%- include('./partials/navbar') %> <%- include('./partials/msg') %>
+    <%- include('./partials/navbar') %>
+    <%- include('./partials/msg') %>
 
     <div class="parent">
       <% if (locals.type == "signup") { %>
@@ -99,7 +100,9 @@
                 <p><%= element._doc.price * element._doc.qty %></p>
                 <p><%= element._doc.qty %></p>
               </div>
-
+              <button class="del" onclick="remove(this)">
+                <img src="../img/delete.svg" alt="delete">
+              </button>
             </a>  
           <% }) %>
         </main>
