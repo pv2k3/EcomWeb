@@ -43,7 +43,7 @@ staticRouter
                 type: "none",
                 user: userRecord,
                 item2: userRecord.itemsInCart,
-                item: userRecord.itemsBought
+                item: userRecord.itemsBought 
             })
         }
     })
