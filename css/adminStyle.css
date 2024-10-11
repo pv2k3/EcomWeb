@@ -35,6 +35,67 @@ body {
   background-color: var(--color2);
 }
 
+.navigateType {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 90%;
+  padding: 0.5rem 0rem;
+  margin: 0px auto;
+  font-size: 1.125rem;
+}
+
+.container{
+  display: flex;
+  margin-top: 0.25rem;
+  justify-content: space-between;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.itemsTitle{
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.imgDetailItems{
+  width: 15%;
+  margin-left: 1rem;
+}
+
+.detailsTitle{
+  display: grid;
+  width: 70%;
+  grid-template-columns: 1.5fr 1fr 1fr;
+}
+
+.banner-image {
+  max-height: 4rem;
+  width: 15%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.025);
+  padding: 0.25rem;
+  overflow: hidden;
+}
+
+.banner-image img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.details{
+  display: grid;
+  width: 70%;
+  align-items: center;
+  grid-template-columns: 1.5fr 1fr 1fr;
+}
+
 .navigate h1{
   font-size: 2.5rem;
 }
@@ -52,7 +113,7 @@ body {
 }
 
 .line{
-  width: 100%;
+  width: 95%;
   margin: auto;
   height: 4px;
   border-radius: 2px;
@@ -106,6 +167,17 @@ body {
   flex-wrap: wrap;
   margin-top: 1rem;
   gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+a{
+  text-decoration: none;
+  color: var(--color6);
+}
+
+.store-all{
+  padding: 1.25rem;
 }
 
 .smallCardDash{
@@ -115,11 +187,15 @@ body {
   border-radius: 25px;
   background-color: var(--color2);
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6{
   color: var(--color3);
+}
+
+p{
+  color: white;
 }

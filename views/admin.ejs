@@ -13,8 +13,8 @@
         <h1>ByteZone</h1>
         <section class="nav">
           <ul>
-            <li>Dashboard</li>
-            <li>Products</li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#products">Products</a></li>
             <li>Users</li>
             <li>Contact Requests</li>
             <li>Feedbacks</li>
@@ -50,20 +50,89 @@
           <h2>Dashboard</h2>
           <section class="dashboard-part">
             <div class="smallCardDash">
-              <h4 class="title">Total User</h4><br>
-              <p><%= userCount %></p>
+              <div class="smallCardDash-img">
+                <img src="../img/Icon.svg" alt="user" />
+              </div>
+              <div class="smallCardDash-content">
+                <h4 class="title">Total User</h4>
+                <br />
+                <p><%= userCount %></p>
+              </div>
             </div>
             <div class="smallCardDash">
-              <h4 class="title">Total Sales</h4><br>
-              <p><%= itemsSold %></p>
+              <div class="smallCardDash-img">
+                <img src="../img/Icon1.svg" alt="user" />
+              </div>
+              <div class="smallCardDash-content">
+                <h4 class="title">Total Sales</h4>
+                <br />
+                <p><%= itemsSold %></p>
+              </div>
             </div>
             <div class="smallCardDash">
-              <h4 class="title">Sales Amount</h4><br>
-              <p>Rupees <%= salesAmount %></p>
+              <div class="smallCardDash-img">
+                <img src="../img/Icon2.svg" alt="user" />
+              </div>
+              <div class="smallCardDash-content">
+                <h4 class="title">Total Amount</h4>
+                <br />
+                <p>Rupees <%= salesAmount %></p>
+              </div>
+            </div>
+            <div class="smallCardDash">
+              <div class="smallCardDash-img">
+                <img src="../img/Icon3.svg" alt="user" />
+              </div>
+              <div class="smallCardDash-content">
+                <h4 class="title">Order Count</h4>
+                <br />
+                <p><%= totalOrders %></p>
+              </div>
             </div>
           </section>
         </main>
+        <div class="line"></div>
+        <main id="product">
+          <nav class="navigateType">
+            <% allItems.forEach(element => { %>
+             <h4 onclick="get(this)" id= <%= element.type + "Head" %> > <%= element.type.toUpperCase() %> </h4>
+            <% }) %>
+          </nav>
+          <div class="line"></div>
+          <main class="store-all">
+            <% allItems.forEach(itemType => { %>
+              <div id= <%= itemType.type %> >
+                <div class="items">
+                  <div class="itemsTitle">
+                    <div class="imgDetailItems">
+                      <h4>Img</h4>
+                    </div>
+                    <div class="detailsTitle">
+                      <h4>Item Name</h4>
+                      <h4>Price</h4>
+                      <h4>Quantity</h4>
+                    </div>
+                  </div>
+                  <% itemType.item.forEach(element => { %>
+                    <div class="container">
+                      <div class="banner-image">
+                        <img src="<%= element.image %>" alt="<%= element.productName %>">
+                       </div>
+                       <div class="details">
+                         <p> <%= element.productName %> </p>
+                         <p> Rupees <%= element.price %> </p>
+                         <p> <%= element.qty %> </p>
+                      </div>
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+            <% }) %>
+          </main>
+        </main>
+        
       </main>
     </main>
+    <%- include("./partials/storeSwitchItemType") %>
   </body>
 </html>
