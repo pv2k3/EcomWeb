@@ -1,3 +1,4 @@
+const { SchemaTypes } = require("mongoose");
 const mongoose = require("mongoose");
 const cryto = require("node:crypto");
 
@@ -19,8 +20,8 @@ const nonTechInfo = {
         required: true,
     },
     image: {
-        type: String,
-        required: true,
+        type: SchemaTypes.ObjectId,
+        ref: "Image"
     }
 }
 
