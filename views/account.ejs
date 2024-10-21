@@ -77,7 +77,7 @@
           <% item.forEach(element => { %>
           <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
             <div class="content-image">
-              <img src="/img/images/<%= element.image %>" alt="<%= element.productName %>">
+              <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
             </div>
             <div class="content">
               <p><%= element._doc.name %></p>
