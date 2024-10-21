@@ -145,6 +145,7 @@ a img {
   color: lime;
   padding: 1rem;
 }
+
 @media screen and (width <= 600px) {
   .line-area {
     width: 90%;
@@ -165,6 +166,11 @@ a img {
   }
   .card {
     min-width: 400px;
+  }
+
+  .parent .sign-up-card,
+  .login-card {
+    min-width: 280px;
   }
 }
 

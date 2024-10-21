@@ -29,6 +29,8 @@ body {
 .navigate{
   position: fixed;
   width: 20%;
+  min-width: 200px;
+  z-index: 10;
   min-height: 100dvh;
   padding: 2rem;
   overflow: auto;
