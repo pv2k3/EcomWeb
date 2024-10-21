@@ -9,6 +9,8 @@ const router = require("./routes/routes");
 const staticRouter = require("./routes/staticRoutes")
 const buyRouter = require("./routes/buyroutes");
 const admRouter = require("./routes/adminRoutes")
+const imageRouter = require("./routes/imageRoutes");
+
 const {
     restrictToUserLogin,
     restrictToUserAdmin
@@ -30,6 +32,7 @@ app.use("/data", restrictToUserAdmin, router);
 app.use("/", staticRouter);
 app.use("/buy", restrictToUserLogin, buyRouter);
 app.use("/adm", restrictToUserAdmin, admRouter);
+app.use("/img", imageRouter);
 
 app.listen(process.env.PORT, ()=>{
     console.log("Server Started")

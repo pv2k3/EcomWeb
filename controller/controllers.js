@@ -3,8 +3,10 @@ const {
     Desktop,
     Accessory
 } = require("../models/STOCK")
+const Image = require("../models/IMAGES");
 const User = require("../models/USER");
 
+const fs = require("fs");
 const crypto = require("node:crypto");
 const { setUser } = require("../services/auth")
 const path = require("path")
@@ -142,6 +144,12 @@ async function getItemDetails(req, res) {
     res.json(result);
 }
 
+function getExtension(file){
+    const seperated = file.split(".");
+
+    return seperated[seperated.length - 1];
+}
+
 async function addItemInDB(req, res) {
     const body = req.body;
     const type = req.body.type;
@@ -158,12 +166,21 @@ async function addItemInDB(req, res) {
         }
     }
 
+    const imageBuffer = await fs.promises.readFile(file.path);
+
+    const image = await Image.create({
+        name: `${type}_${body.productName}`,
+        contentType: `image/${getExtension(file.path)}`,
+        image: imageBuffer
+    })
+
+
     const nonTechInfo = {
         productName: body.productName,
         category: body.category,
         qty: body.qty,
         price: body.price,
-        image: `./${file.path}`
+        image: image._id
     }
 
     switch (type) {
@@ -201,7 +218,7 @@ async function addItemInDB(req, res) {
             break;
     }
 
-    return res.redirect("/addItem");
+    return res.redirect("/adm/addItem");
 }
 
 module.exports = {
