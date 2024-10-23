@@ -20,18 +20,18 @@ async function getAllUserBoughtOrCart(items) {
     };
 
     items.forEach(item => {
-        if(item.itemType == "laptop"){
+        if (item.itemType == "laptop") {
             itemByType.laptop.push((item.id))
-        }else if(item.itemType == "desktop"){
+        } else if (item.itemType == "desktop") {
             itemByType.desktop.push((item.id))
-        }else if(item.itemType == "accessory"){
+        } else if (item.itemType == "accessory") {
             itemByType.accessory.push((item.id))
         }
     });
 
-    const laptops = await Laptop.find({_id: {$in: itemByType.laptop}});
-    const desktops = await Desktop.find({_id: {$in: itemByType.desktop}});
-    const accessories = await Accessory.find({_id: {$in: itemByType.accessory}});
+    const laptops = await Laptop.find({ _id: { $in: itemByType.laptop } });
+    const desktops = await Desktop.find({ _id: { $in: itemByType.desktop } });
+    const accessories = await Accessory.find({ _id: { $in: itemByType.accessory } });
 
     var result = [...laptops, ...desktops, ...accessories];
 
@@ -51,6 +51,7 @@ async function loginUser(req, res) {
         return res.render("account", {
             type: "login",
             msg: "Email or Password is Wrong",
+            status: "fail"
         })
     }
 
@@ -59,7 +60,8 @@ async function loginUser(req, res) {
     if (hashedPassword != userRecord.password) {
         return res.render("account", {
             type: "login",
-            msg: "Email or Password is Wrong"
+            msg: "Email or Password is Wrong",
+            status: "fail"
         })
     }
 
@@ -71,7 +73,8 @@ async function loginUser(req, res) {
         type: "user",
         item2: userRecord.itemsInCart,
         item: userRecord.itemsBought,
-        msg: "Login is Successful"
+        msg: "Login is Successful",
+        status: "success"
     });
 }
 
@@ -80,29 +83,42 @@ async function addUser(req, res) {
     if (!body || !body.userName || !body.email || !body.password || !body.contact || !body.address) {
         return res.status(400);
     }
-    const result = await User.create({
-        userName: body.userName,
-        email: body.email,
-        password: body.password,
-        contact: body.contact,
-        address: body.address,
-        role: "NORMAL",
-        itemsBought: [],
-        itemsInCart: []
+
+    const user = await User.findOne({
+        email: body.email
     })
 
-    const ans = await getAllUserBoughtOrCart(result.itemsBought);
-    const ans2 = await getAllUserBoughtOrCart(result.itemsInCart);
-    
-    const token = setUser(result);
+    var result, ans, ans2, token;
 
-    res.cookie("uid", token);
-
-    return res.status(201).render("account", {
-        user: body,
-        item: ans,
-        item2: ans2
-    })
+    if (!user) {
+        result = await User.create({
+            userName: body.userName,
+            email: body.email,
+            password: body.password,
+            contact: body.contact,
+            address: body.address,
+            role: "NORMAL",
+            itemsBought: [],
+            itemsInCart: []
+        })
+        ans = await getAllUserBoughtOrCart(result.itemsBought);
+        ans2 = await getAllUserBoughtOrCart(result.itemsInCart);
+        token = setUser(result);
+        res.cookie("uid", token);
+        return res.status(201).render("account", {
+            user: body,
+            item: ans,
+            item2: ans2,
+            msg: "User account created",
+            status: "success"
+        })
+    } else {
+        res.render("account", {
+            type: "signup",
+            msg: "User already present",
+            status: "fail"
+        })
+    }
 }
 
 
@@ -138,13 +154,16 @@ async function getItemDetails(req, res) {
         case "accessory":
             result = await Accessory.find();
             break;
+        case "image":
+            result = await Image.find();
+            break;
         default:
             break;
     }
     res.json(result);
 }
 
-function getExtension(file){
+function getExtension(file) {
     const seperated = file.split(".");
 
     return seperated[seperated.length - 1];
@@ -173,7 +192,6 @@ async function addItemInDB(req, res) {
         contentType: `image/${getExtension(file.path)}`,
         image: imageBuffer
     })
-
 
     const nonTechInfo = {
         productName: body.productName,
