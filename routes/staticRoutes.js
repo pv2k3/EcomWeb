@@ -85,7 +85,7 @@ staticRouter
             category: productDetails.category,
             qty: productDetails.qty,
             price: productDetails.price,
-            image: `.${productDetails.image}`,
+            image: productDetails.image,
             specification: productDetails.specification,
             description: productDetails.description
         });

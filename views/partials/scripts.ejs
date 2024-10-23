@@ -21,18 +21,18 @@
     }
   });
 
-  window.addEventListener("load", () => {
-    try {
-      var elem = document.getElementsByClassName("notification")[0];
-      if (elem.innerText === "Email or Password is Wrong") {
-        elem.style.backgroundColor = "rgb(100, 0, 0)";
-      } else {
-        elem.style.backgroundColor = "green";
-      }
-    } catch (error) {
-      console.log("No login or sign up detected");
-    }
-  });
+  // window.addEventListener("load", () => {
+  //   try {
+  //     var elem = document.getElementsByClassName("notification")[0];
+  //     if (elem.innerText === "Email or Password is Wrong") {
+  //       elem.style.backgroundColor = "rgb(100, 0, 0)";
+  //     } else {
+  //       elem.style.backgroundColor = "green";
+  //     }
+  //   } catch (error) {
+  //     console.log("No login or sign up detected");
+  //   }
+  // });
 
   async function remove(params) {
     const tag = params.parentNode;
