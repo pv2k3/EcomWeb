@@ -23,14 +23,16 @@
           <div class="line"></div>
           <div class="items">
             <% itemType.item.forEach(element => { %>
-              <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
-                <div class="wrapper">
-                  <div class="banner-image">
-                    <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+              <% if (element.qty > 0) { %>
+                <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
+                  <div class="wrapper">
+                    <div class="banner-image">
+                      <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                    </div>
                   </div>
-                </div>
-                <h4><%= element.productName %></h4>
-              </a>
+                  <h4><%= element.productName %></h4>
+                </a>
+              <% } %>
             <% }) %>
           </div>
         </div>

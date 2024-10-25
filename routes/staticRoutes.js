@@ -14,6 +14,7 @@ const {
     getAllUserBoughtOrCart
 } = require("../controller/controllers");
 const { getUser } = require("../services/auth");
+const { ObjectId } = require("mongodb");
 
 
 const staticRouter = express.Router();
@@ -101,7 +102,12 @@ staticRouter
         })
 
     })
-    .post("/logout", (req, res)=>{
+    .post("/logout", async (req, res)=>{
+        const userUid = req.cookies.uid;
+        const rec = getUser(userUid);
+        
+        await User.updateOne({email: rec.email, _id: new ObjectId(rec.id)}, {isLoggedIn: false});
+
         res.clearCookie("uid").redirect("/account")
     })
 

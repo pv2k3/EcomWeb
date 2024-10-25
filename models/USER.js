@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isLoggedIn: {
+        type: Boolean
+    },
     salt: {
         type: String,
     },

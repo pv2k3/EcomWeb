@@ -28,12 +28,18 @@ router.get("/", async (req, res)=>{
         });
     });
 
+
+    const active = await User.find({isLoggedIn: true});
+
+    const activeUser = active.length;
+
     const itemRecords = await getAllRecords();
 
     res.render("admin", {
         name: name,
         userCount: len,
         itemsSold: itemsSold,
+        activeUser: activeUser,
         salesAmount: amountSales,
         totalOrders: totalOrders,
         allItems: itemRecords

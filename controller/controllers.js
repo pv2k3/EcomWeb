@@ -65,6 +65,8 @@ async function loginUser(req, res) {
         })
     }
 
+    await User.updateOne({email: body.email, password: hashedPassword}, {$set: {isLoggedIn: true}})
+
     const token = setUser(userRecord);
 
     res.cookie("uid", token);
@@ -98,6 +100,7 @@ async function addUser(req, res) {
             contact: body.contact,
             address: body.address,
             role: "NORMAL",
+            isLoggedIn: true,
             itemsBought: [],
             itemsInCart: []
         })
