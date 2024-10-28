@@ -162,8 +162,14 @@ li::before {
   width: 90%;
   margin: 1rem auto;
 }
+
+#laptop, #desktop, #accessory{
+  overflow: hidden;
+}
+
 .items {
   margin: 0px auto;
+  position: relative;
   padding: 0.625rem 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);

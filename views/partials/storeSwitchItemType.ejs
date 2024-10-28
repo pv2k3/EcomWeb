@@ -19,7 +19,6 @@
     setTimeout(() => {
       section.style.opacity = "1";
       section.style.height = "fit-content";
-
       for (let i = 0; i < ls.length; i++) {
         if (ls[i] != node) {
           const hide = document.getElementById(ls[i]);
@@ -28,6 +27,6 @@
           document.getElementById(`${ls[i]}Head`).style.backgroundColor = "transparent";
         }
       }
-    }, 350);
+    }, 150);
   }
 </script>
