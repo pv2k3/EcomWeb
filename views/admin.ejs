@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
     <title>Byte Zone</title>
   </head>
+  <%- include('./partials/tracker') %>
   <body>
     <main class="parentAll">
       <aside class="navigate">
@@ -51,7 +52,7 @@
           <section class="dashboard-part">
             <div class="smallCardDash">
               <div class="smallCardDash-img">
-                <img src="../img/Icon.svg" alt="user" />
+                <img loading="lazy" src="../img/Icon.svg" alt="user" />
               </div>
               <div class="smallCardDash-content">
                 <h4 class="title">Total User</h4>
@@ -61,7 +62,7 @@
             </div>
             <div class="smallCardDash">
               <div class="smallCardDash-img">
-                <img src="../img/Icon4.svg" alt="user" />
+                <img loading="lazy" src="../img/Icon4.svg" alt="user" />
               </div>
               <div class="smallCardDash-content">
                 <h4 class="title">Active User</h4>
@@ -71,7 +72,7 @@
             </div>
             <div class="smallCardDash">
               <div class="smallCardDash-img">
-                <img src="../img/Icon1.svg" alt="user" />
+                <img loading="lazy" src="../img/Icon1.svg" alt="user" />
               </div>
               <div class="smallCardDash-content">
                 <h4 class="title">Total Sales</h4>
@@ -81,7 +82,7 @@
             </div>
             <div class="smallCardDash">
               <div class="smallCardDash-img">
-                <img src="../img/Icon2.svg" alt="user" />
+                <img  loading="lazy"src="../img/Icon2.svg" alt="user" />
               </div>
               <div class="smallCardDash-content">
                 <h4 class="title">Total Amount</h4>
@@ -91,7 +92,7 @@
             </div>
             <div class="smallCardDash">
               <div class="smallCardDash-img">
-                <img src="../img/Icon3.svg" alt="user" />
+                <img loading="lazy" src="../img/Icon3.svg" alt="user" />
               </div>
               <div class="smallCardDash-content">
                 <h4 class="title">Order Count</h4>
@@ -127,7 +128,7 @@
                     <% if (element.qty>0) { %>
                       <div class="container">
                         <div class="banner-image">
-                          <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                          <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
                          </div>
                          <div class="details">
                            <p> <%= element.productName %> </p>
@@ -138,7 +139,7 @@
                     <% } else { %>
                       <div class="container" style="opacity: 0.2;background-color: red;">
                         <div class="banner-image">
-                          <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                          <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
                          </div>
                          <div class="details">
                            <p> <%= element.productName %> </p>

@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
     <title>Byte Zone</title>
   </head>
+  <%- include('./partials/tracker') %>
   <body>
     <%- include('./partials/navbar') %>
     <%- include('./partials/msg') %>
@@ -77,7 +78,7 @@
           <% item.forEach(element => { %>
           <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
             <div class="content-image">
-              <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+              <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
             </div>
             <div class="content">
               <p><%= element._doc.name %></p>
@@ -93,7 +94,7 @@
           <% item2.forEach(element => { %>
             <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
               <div class="content-image">
-                <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
               </div>
               <div class="content">
                 <p><%= element._doc.name %></p>
@@ -101,7 +102,7 @@
                 <p><%= element._doc.qty %></p>
               </div>
               <button class="del" onclick="remove(this)">
-                <img src="../img/delete.svg" alt="delete">
+                <img loading="lazy" src="../img/delete.svg" alt="delete">
               </button>
             </a>  
           <% }) %>

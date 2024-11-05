@@ -109,7 +109,7 @@ li {
 }
 .text-section section {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -169,6 +169,12 @@ input {
   .text-section{
     width: 100%;
     padding: 1rem;
+  }
+  .text-section section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .text-section li{
     flex-wrap: wrap;

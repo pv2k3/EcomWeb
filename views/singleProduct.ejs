@@ -7,13 +7,14 @@
     <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/x-icon" />
     <title>Product <%= name %> </title>
   </head>
+  <%- include('./partials/tracker') %>
   <body>
     <nav class="navbar">
-      <a href="/store"> <img src="../img/nav_left.svg" alt=""> Store</a>
+      <a href="/store"> <img loading="lazy" src="../img/nav_left.svg" alt=""> Store</a>
     </nav>
     <main class="item-card">
       <div class="img">
-        <img src="/img/image/<%= image %>" alt=<%= name %>>
+        <img loading="lazy" src="/img/image/<%= image %>" alt=<%= name %>>
       </div>
         <div class="text-section">
           <h2> <%= name %> </h2>
@@ -35,7 +36,8 @@
               <li><h4>Description: </h4><p><%= description %></p></li>
             </ul> 
           <% } %>
-          <section><div class="buy">
+          <section>
+            <div class="buy">
               <a href= <%=`/buy?item=${id}&type=${type}` %>>Buy Now</a>
             </div>
             <div class="addToCart buy">

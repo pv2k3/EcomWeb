@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/png" />
     <title>Byte Zone Store</title>
   </head>
+  <%- include('./partials/tracker') %>
   <body>
     <%- include('./partials/navbar') %>
 
@@ -27,7 +28,7 @@
                 <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
                   <div class="wrapper">
                     <div class="banner-image">
-                      <img src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                      <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
                     </div>
                   </div>
                   <h4><%= element.productName %></h4>
