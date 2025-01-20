@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/styleSingleProduct.css" />
-    <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/x-icon" />
-    <title>Product <%= name %> </title>
-  </head>
-  <%- include('./partials/tracker') %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="ByteZone: Your one-stop shop for all your computing needs. Discover a wide range of desktops, laptops, and accessories at competitive prices. Find the perfect tech for work, play, and everything in between.">
+  <meta name="keywords"
+    content="desktops, laptops, computers, accessories, electronics, gaming, business, online shopping, tech deals, bytezone">
+  <link rel="stylesheet" href="../css/styleSingleProduct.css" />
+  <link rel="shortcut icon" href="../img/Logo_Byte.png" type="image/x-icon" />
+  <title>Product <%= name %>
+  </title>
+</head>
+<%- include('./partials/tracker') %>
+
   <body>
     <nav class="navbar">
       <a href="/store"> <img loading="lazy" src="../img/nav_left.svg" alt=""> Store</a>
     </nav>
     <main class="item-card">
       <div class="img">
-        <img loading="lazy" src="/img/image/<%= image %>" alt=<%= name %>>
+        <img loading="lazy" src="/img/image/<%= image %>" alt=<%=name %>>
       </div>
-        <div class="text-section">
-          <h2> <%= name %> </h2>
+      <div class="text-section">
+        <h2>
+          <%= name %>
+        </h2>
+        <ul>
+          <li>
+            <h4>Category : </h4>
+            <p>
+              <%= category %>
+            </p>
+          </li>
+          <li>
+            <h4>Price : </h4>
+            <p>Rupees <%= price %>
+            </p>
+          </li>
+        </ul>
+        <% if (locals.specification) { %>
           <ul>
-            <li><h4>Category : </h4><p><%= category %></p></li>
-            <li><h4>Price : </h4><p>Rupees <%= price %></p></li> 
-          </ul> 
-          <% if (locals.specification) { %>
-            <ul>
-              <li><h4>Processor : </h4><p><%= specification.processor %></p></li>
-              <li><h4>RAM : </h4><p><%= specification.ram %></p></li>
-              <li><h4>Storage : </h4><p><%= specification.storage %></p></li>
-              <li><h4>Battery : </h4><p><%= specification.battery %></p></li>
-              <li><h4>Graphics : </h4><p><%= specification.graphicCard %></p></li>
-            </ul>
+            <li>
+              <h4>Processor : </h4>
+              <p>
+                <%= specification.processor %>
+              </p>
+            </li>
+            <li>
+              <h4>RAM : </h4>
+              <p>
+                <%= specification.ram %>
+              </p>
+            </li>
+            <li>
+              <h4>Storage : </h4>
+              <p>
+                <%= specification.storage %>
+              </p>
+            </li>
+            <li>
+              <h4>Battery : </h4>
+              <p>
+                <%= specification.battery %>
+              </p>
+            </li>
+            <li>
+              <h4>Graphics : </h4>
+              <p>
+                <%= specification.graphicCard %>
+              </p>
+            </li>
+          </ul>
           <% } %>
-          <% if (locals.description) { %>
-            <ul>
-              <li><h4>Description: </h4><p><%= description %></p></li>
-            </ul> 
-          <% } %>
-          <section>
-            <div class="buy">
-              <a href= <%=`/buy?item=${id}&type=${type}` %>>Buy Now</a>
-            </div>
-            <div class="addToCart buy">
-              <a href= <%=`/buy/addToCart?item=${id}&type=${type}` %>>Add To Cart</a>
-            </div>
-          </section>
-        </div>
+            <% if (locals.description) { %>
+              <ul>
+                <li>
+                  <h4>Description: </h4>
+                  <p>
+                    <%= description %>
+                  </p>
+                </li>
+              </ul>
+              <% } %>
+                <section>
+                  <div class="buy">
+                    <a href=<%=`/buy?item=${id}&type=${type}` %>>Buy Now</a>
+                  </div>
+                  <div class="addToCart buy">
+                    <a href=<%=`/buy/addToCart?item=${id}&type=${type}` %>>Add To Cart</a>
+                  </div>
+                </section>
+      </div>
     </main>
     <%- include("./partials/scripts") %>
   </body>
+
 </html>
