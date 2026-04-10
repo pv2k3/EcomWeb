@@ -1,4 +1,5 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 
 const {
     Accessory,
@@ -15,6 +16,14 @@ const {
 } = require("../controller/controllers");
 const { getUser } = require("../services/auth");
 const { ObjectId } = require("mongodb");
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    message: "Too many login attempts, please try again after 15 minutes",
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 
 const staticRouter = express.Router();
@@ -53,7 +62,7 @@ staticRouter
             type: "login"
         })
     })
-    .post("/account/login", async (req, res) => {
+    .post("/account/login", loginLimiter, async (req, res) => {
         loginUser(req, res);
     })
     .get("/account/signup", (req, res) => {

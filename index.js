@@ -1,8 +1,8 @@
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
 require('dotenv').config()
-
 
 const {connectMongoDb} = require("./connection")
 const router = require("./routes/routes");
@@ -18,13 +18,12 @@ const {
 
 const app = express();
 
-
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
-app.use(cookieParser())
-app.use(express.static(__dirname))
-app.use(express.urlencoded({extended: false}))
-
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
 
 connectMongoDb(process.env.MNG_URL);
 
@@ -34,6 +33,6 @@ app.use("/buy", restrictToUserLogin, buyRouter);
 app.use("/adm", restrictToUserAdmin, admRouter);
 app.use("/img", imageRouter);
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT, () => {
     console.log("Server Started")
-})
+});

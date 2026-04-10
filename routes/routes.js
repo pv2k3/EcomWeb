@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+const crypto = require("crypto");
 const {
     Laptop,
     Desktop,
@@ -12,11 +14,21 @@ const storage = multer.diskStorage({
         cb(null, `public/uploads/${req.body.type}`)
     },
     filename: function(req, file, cb){
-        cb(null, `${file.originalname}`)
+        const ext = path.extname(file.originalname).toLowerCase();
+        cb(null, `${crypto.randomBytes(8).toString('hex')}${ext}`);
     }
 })
 
-const upload = multer({storage});
+const fileFilter = (req, file, cb) => {
+    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    if (allowed.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only JPEG, PNG, and WebP images are allowed'), false);
+    }
+};
+
+const upload = multer({ storage, fileFilter, limits: { fileSize: 5 * 1024 * 1024 } });
 
 const {
     getItemDetails,
