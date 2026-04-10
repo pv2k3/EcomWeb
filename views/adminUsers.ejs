@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/adminStyle.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Admin — Users</title>
+  <style>
+    .page-header { padding:1rem; }
+    .users-table { width:95%; margin:0 auto 2rem; border-collapse:collapse; }
+    .users-table th { background:var(--color2); color:var(--color3); padding:0.75rem 1rem; text-align:left; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; }
+    .users-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.07); color:var(--color4); font-size:0.9rem; vertical-align:middle; }
+    .users-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .badge-admin { background:rgba(239,68,68,0.15); color:#f87171; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.8rem; }
+    .badge-normal { background:rgba(72,128,255,0.15); color:var(--color3); padding:0.2rem 0.6rem; border-radius:99px; font-size:0.8rem; }
+    .badge-online { background:rgba(16,185,129,0.15); color:#34d399; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.75rem; }
+    .btn-role { padding:0.3rem 0.75rem; border-radius:0.4rem; font-size:0.82rem; cursor:pointer; border:1px solid rgba(255,255,255,0.2); background:transparent; color:var(--color4); }
+    .btn-role:hover { background:rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body>
+  <main class="parentAll">
+    <aside class="navigate">
+      <h1>ByteZone</h1>
+      <section class="nav">
+        <ul>
+          <li><a href="/adm">Dashboard</a></li>
+          <li><a href="/adm/products">Products</a></li>
+          <li><a href="/adm/users" style="color:var(--color3)">Users</a></li>
+          <li><a href="/adm/orders">Orders</a></li>
+        </ul>
+        <div class="line"></div>
+        <ul>
+          <li>
+            <form action="/adm/logout" method="post">
+              <button type="submit" style="background:transparent;border:none;color:var(--color6);font-size:1.25rem;font-weight:bold;cursor:pointer;">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <main class="content">
+      <nav class="top">
+        <section class="partNav">
+          <div class="cardSmallNav">
+            <p id="name"><%= name.userName %></p>
+            <p id="role">ADMIN</p>
+          </div>
+        </section>
+      </nav>
+      <div class="page-header">
+        <h2>Users (<%= users.length %>)</h2>
+      </div>
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Role</th>
+            <th>Orders</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(u => { %>
+          <tr>
+            <td><%= u.userName %></td>
+            <td><%= u.email %></td>
+            <td><%= u.contact %></td>
+            <td>
+              <% if (u.role === 'ADMIN') { %>
+                <span class="badge-admin">ADMIN</span>
+              <% } else { %>
+                <span class="badge-normal">USER</span>
+              <% } %>
+            </td>
+            <td><%= u.itemsBought ? u.itemsBought.length : 0 %></td>
+            <td>
+              <% if (u.isLoggedIn) { %>
+                <span class="badge-online">Online</span>
+              <% } else { %>
+                <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;">Offline</span>
+              <% } %>
+            </td>
+            <td><%= u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-IN') : '—' %></td>
+            <td>
+              <form action="/adm/users/role/<%= u._id %>" method="post">
+                <button class="btn-role" type="submit">
+                  <%= u.role === 'ADMIN' ? 'Make User' : 'Make Admin' %>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </main>
+  </main>
+</body>
+</html>

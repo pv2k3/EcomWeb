@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/adminStyle.css" />
+  <link rel="stylesheet" href="/css/stylesignup.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Edit Product</title>
+  <style>
+    main.edit-wrap { max-width:600px; margin:2rem auto; background:var(--color2); border-radius:1rem; padding:2rem; }
+    h2 { margin-bottom:1.5rem; }
+    .form-group { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1rem; }
+    .form-group label { color:var(--color4); font-size:0.9rem; font-weight:500; }
+    .form-group input, .form-group textarea, .form-group select { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:0.5rem; color:var(--color4); padding:0.6rem 0.75rem; font-size:0.95rem; width:100%; }
+    .form-group input:focus, .form-group textarea:focus { border-color:var(--color3); outline:none; }
+    .btn-row { display:flex; gap:1rem; margin-top:1.5rem; }
+    .btn-save { background:var(--color3); color:#fff; padding:0.6rem 1.5rem; border:none; border-radius:0.5rem; font-size:1rem; font-weight:600; cursor:pointer; }
+    .btn-save:hover { opacity:0.85; }
+    .btn-cancel { background:transparent; color:var(--color4); padding:0.6rem 1.5rem; border:1px solid rgba(255,255,255,0.2); border-radius:0.5rem; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; }
+  </style>
+</head>
+<body>
+  <main class="parentAll">
+    <aside class="navigate">
+      <h1>ByteZone</h1>
+      <section class="nav">
+        <ul>
+          <li><a href="/adm">Dashboard</a></li>
+          <li><a href="/adm/products" style="color:var(--color3)">Products</a></li>
+          <li><a href="/adm/users">Users</a></li>
+          <li><a href="/adm/orders">Orders</a></li>
+        </ul>
+        <div class="line"></div>
+        <ul>
+          <li>
+            <form action="/adm/logout" method="post">
+              <button type="submit" style="background:transparent;border:none;color:var(--color6);font-size:1.25rem;font-weight:bold;cursor:pointer;">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <main class="content">
+      <nav class="top">
+        <section class="partNav">
+          <div class="cardSmallNav">
+            <p id="role">ADMIN</p>
+          </div>
+        </section>
+      </nav>
+      <main class="edit-wrap">
+        <h2>Edit <%= type.charAt(0).toUpperCase() + type.slice(1) %></h2>
+        <form action="/adm/products/edit/<%= type %>/<%= product._id %>" method="post">
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" name="productName" value="<%= product.productName %>" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" value="<%= product.category %>" required>
+          </div>
+          <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" value="<%= product.price %>" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Stock Quantity</label>
+            <input type="number" name="qty" value="<%= product.qty %>" min="0" required>
+          </div>
+          <% if (type === 'laptop' || type === 'desktop') { %>
+          <div class="form-group">
+            <label>Processor</label>
+            <input type="text" name="processor" value="<%= product.specification ? product.specification.processor : '' %>">
+          </div>
+          <div class="form-group">
+            <label>RAM</label>
+            <input type="text" name="ram" value="<%= product.specification ? product.specification.ram : '' %>">
+          </div>
+          <div class="form-group">
+            <label>Storage</label>
+            <input type="text" name="storage" value="<%= product.specification ? product.specification.storage : '' %>">
+          </div>
+          <div class="form-group">
+            <label>Battery</label>
+            <input type="text" name="battery" value="<%= product.specification ? product.specification.battery : '' %>">
+          </div>
+          <div class="form-group">
+            <label>Graphics Card</label>
+            <input type="text" name="graphicCard" value="<%= product.specification ? product.specification.graphicCard : '' %>">
+          </div>
+          <% } %>
+          <% if (type === 'accessory') { %>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="4"><%= product.description %></textarea>
+          </div>
+          <% } %>
+          <div class="btn-row">
+            <button type="submit" class="btn-save">Save Changes</button>
+            <a href="/adm/products" class="btn-cancel">Cancel</a>
+          </div>
+        </form>
+      </main>
+    </main>
+  </main>
+</body>
+</html>

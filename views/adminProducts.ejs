@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/adminStyle.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Admin — Products</title>
+  <style>
+    .page-header { display:flex; justify-content:space-between; align-items:center; padding:1rem; }
+    .add-btn { background:var(--color3); color:#fff; padding:0.5rem 1.25rem; border-radius:0.5rem; text-decoration:none; font-weight:600; font-size:0.95rem; }
+    .add-btn:hover { opacity:0.85; }
+    .product-table { width:95%; margin:0 auto 2rem; border-collapse:collapse; }
+    .product-table th { background:var(--color2); color:var(--color3); padding:0.75rem 1rem; text-align:left; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; }
+    .product-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.07); color:var(--color4); font-size:0.95rem; vertical-align:middle; }
+    .product-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .product-thumb { width:48px; height:48px; object-fit:contain; background:#fff; border-radius:6px; padding:2px; }
+    .badge-out { background:rgba(239,68,68,0.15); color:#f87171; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.8rem; }
+    .badge-in { background:rgba(16,185,129,0.15); color:#34d399; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.8rem; }
+    .action-btns { display:flex; gap:0.5rem; }
+    .btn-edit { background:rgba(72,128,255,0.15); color:var(--color3); border:1px solid var(--color3); padding:0.3rem 0.75rem; border-radius:0.4rem; text-decoration:none; font-size:0.85rem; }
+    .btn-edit:hover { background:var(--color3); color:#fff; }
+    .btn-delete { background:rgba(239,68,68,0.12); color:#f87171; border:1px solid #f87171; padding:0.3rem 0.75rem; border-radius:0.4rem; font-size:0.85rem; cursor:pointer; }
+    .btn-delete:hover { background:#ef4444; color:#fff; }
+    .type-badge { background:rgba(72,128,255,0.15); color:var(--color3); padding:0.2rem 0.6rem; border-radius:99px; font-size:0.8rem; text-transform:capitalize; }
+    form.delete-form { margin:0; }
+  </style>
+</head>
+<body>
+  <main class="parentAll">
+    <aside class="navigate">
+      <h1>ByteZone</h1>
+      <section class="nav">
+        <ul>
+          <li><a href="/adm">Dashboard</a></li>
+          <li><a href="/adm/products" style="color:var(--color3)">Products</a></li>
+          <li><a href="/adm/users">Users</a></li>
+          <li><a href="/adm/orders">Orders</a></li>
+        </ul>
+        <div class="line"></div>
+        <ul>
+          <li>
+            <form action="/adm/logout" method="post">
+              <button type="submit" style="background:transparent;border:none;color:var(--color6);font-size:1.25rem;font-weight:bold;cursor:pointer;">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <main class="content">
+      <nav class="top">
+        <section class="partNav">
+          <div class="cardSmallNav">
+            <p id="name"><%= name.userName %></p>
+            <p id="role">ADMIN</p>
+          </div>
+        </section>
+      </nav>
+      <div class="page-header">
+        <h2>Products</h2>
+        <a href="/adm/products/add" class="add-btn">+ Add Product</a>
+      </div>
+      <% allItems.forEach(itemType => { %>
+        <h3 style="padding:0.5rem 1rem;color:var(--color3)"><%= itemType.type.toUpperCase() %></h3>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% itemType.item.forEach(p => { %>
+            <tr>
+              <td><img class="product-thumb" src="/img/image/<%= p.image %>" alt="<%= p.productName %>"></td>
+              <td><%= p.productName %></td>
+              <td><%= p.category %></td>
+              <td>₹<%= p.price.toLocaleString('en-IN') %></td>
+              <td>
+                <% if (p.qty > 0) { %>
+                  <span class="badge-in"><%= p.qty %> in stock</span>
+                <% } else { %>
+                  <span class="badge-out">Out of stock</span>
+                <% } %>
+              </td>
+              <td>
+                <div class="action-btns">
+                  <a href="/adm/products/edit/<%= itemType.type %>/<%= p._id %>" class="btn-edit">Edit</a>
+                  <form class="delete-form" action="/adm/products/delete/<%= itemType.type %>/<%= p._id %>" method="post" onsubmit="return confirm('Delete this product?')">
+                    <button class="btn-delete" type="submit">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% }) %>
+    </main>
+  </main>
+</body>
+</html>

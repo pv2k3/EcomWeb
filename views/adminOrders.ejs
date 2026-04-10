@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/adminStyle.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Admin — Orders</title>
+  <style>
+    .page-header { padding:1rem; }
+    .orders-table { width:95%; margin:0 auto 2rem; border-collapse:collapse; }
+    .orders-table th { background:var(--color2); color:var(--color3); padding:0.75rem 1rem; text-align:left; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; }
+    .orders-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.07); color:var(--color4); font-size:0.9rem; vertical-align:middle; }
+    .orders-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .product-thumb { width:40px; height:40px; object-fit:contain; background:#fff; border-radius:4px; padding:2px; }
+    .type-pill { background:rgba(72,128,255,0.15); color:var(--color3); padding:0.2rem 0.5rem; border-radius:99px; font-size:0.78rem; text-transform:capitalize; }
+    .total-col { color:#34d399; font-weight:600; }
+    .empty-state { text-align:center; padding:3rem; color:rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+  <main class="parentAll">
+    <aside class="navigate">
+      <h1>ByteZone</h1>
+      <section class="nav">
+        <ul>
+          <li><a href="/adm">Dashboard</a></li>
+          <li><a href="/adm/products">Products</a></li>
+          <li><a href="/adm/users">Users</a></li>
+          <li><a href="/adm/orders" style="color:var(--color3)">Orders</a></li>
+        </ul>
+        <div class="line"></div>
+        <ul>
+          <li>
+            <form action="/adm/logout" method="post">
+              <button type="submit" style="background:transparent;border:none;color:var(--color6);font-size:1.25rem;font-weight:bold;cursor:pointer;">Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <main class="content">
+      <nav class="top">
+        <section class="partNav">
+          <div class="cardSmallNav">
+            <p id="name"><%= name.userName %></p>
+            <p id="role">ADMIN</p>
+          </div>
+        </section>
+      </nav>
+      <div class="page-header">
+        <h2>Orders (<%= orders.length %>)</h2>
+      </div>
+      <% if (orders.length === 0) { %>
+        <p class="empty-state">No orders yet.</p>
+      <% } else { %>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Type</th>
+            <th>Buyer</th>
+            <th>Email</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(o => { %>
+          <tr>
+            <td><img class="product-thumb" src="/img/image/<%= o.image %>" alt="<%= o.itemName %>"></td>
+            <td><%= o.itemName %></td>
+            <td><span class="type-pill"><%= o.itemType %></span></td>
+            <td><%= o.userName %></td>
+            <td><%= o.email %></td>
+            <td><%= o.qty %></td>
+            <td>₹<%= o.price.toLocaleString('en-IN') %></td>
+            <td class="total-col">₹<%= o.total.toLocaleString('en-IN') %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </main>
+  </main>
+</body>
+</html>

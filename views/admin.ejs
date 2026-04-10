@@ -16,18 +16,18 @@
         <h1>ByteZone</h1>
         <section class="nav">
           <ul>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#products">Products</a></li>
-            <li>Users</li>
-            <li>Contact Requests</li>
-            <li>Feedbacks</li>
+            <li><a href="/adm" id="dashLink">Dashboard</a></li>
+            <li><a href="/adm/products">Products</a></li>
+            <li><a href="/adm/users">Users</a></li>
+            <li><a href="/adm/orders">Orders</a></li>
           </ul>
           <div class="line"></div>
           <ul>
-            <li>Sales</li>
-            <li>Order-Lists</li>
-            <li>Product Stocks</li>
-            <li>Log Out</li>
+            <li>
+              <form action="/adm/logout" method="post">
+                <button type="submit" style="background:transparent;border:none;color:var(--color6);font-size:1.25rem;font-weight:bold;cursor:pointer;">Log Out</button>
+              </form>
+            </li>
           </ul>
         </section>
       </aside>
