@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Order Confirmed — Byte Zone</title>
+  <style>
+    .success-wrap {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .success-title {
+      color: #34d399;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .success-sub {
+      color: rgba(238, 238, 238, 0.7);
+      font-size: 1.1rem;
+      max-width: 400px;
+    }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+    .btn-primary { background: #1fe7f1; color: #222831; padding: 0.75rem 2rem; border-radius: 2rem; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { border: 2px solid rgba(255,255,255,0.2); color: #eee; padding: 0.75rem 2rem; border-radius: 2rem; font-weight: 600; text-decoration: none; font-size: 1rem; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+  <div class="success-wrap">
+    <div class="checkmark">✓</div>
+    <h1 class="success-title">Order Confirmed!</h1>
+    <p class="success-sub">Your payment was successful. Your order has been placed and will be delivered soon.</p>
+    <div class="btn-group">
+      <a href="/store" class="btn-primary">Continue Shopping</a>
+      <a href="/account" class="btn-ghost">My Orders</a>
+    </div>
+  </div>
+</body>
+</html>
