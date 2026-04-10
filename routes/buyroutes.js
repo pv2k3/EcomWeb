@@ -12,6 +12,39 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
+// In-memory set to prevent double-recording of QR payments
+const processedQrCodes = new Set();
+
+// Direct Razorpay REST API call helper (for QR code endpoints)
+function rzpRequest(method, path, data) {
+    return new Promise((resolve, reject) => {
+        const https = require("https");
+        const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
+        const body = data ? JSON.stringify(data) : "";
+        const options = {
+            hostname: "api.razorpay.com",
+            path: `/v1${path}`,
+            method,
+            headers: {
+                "Authorization": `Basic ${auth}`,
+                "Content-Type": "application/json",
+                "Content-Length": Buffer.byteLength(body),
+            },
+        };
+        const req = https.request(options, (res) => {
+            let raw = "";
+            res.on("data", (chunk) => raw += chunk);
+            res.on("end", () => {
+                try { resolve(JSON.parse(raw)); }
+                catch (e) { reject(new Error("Invalid JSON from Razorpay")); }
+            });
+        });
+        req.on("error", reject);
+        if (body) req.write(body);
+        req.end();
+    });
+}
+
 async function getProduct(podType, productId) {
     if (podType === "laptop") return Laptop.findById(productId);
     if (podType === "desktop") return Desktop.findById(productId);
@@ -128,6 +161,89 @@ router.get("/addToCart", async (req, res) => {
 // Success page
 router.get("/success", (req, res) => {
     res.render("paymentSuccess");
+});
+
+// Create Razorpay UPI QR code with fixed amount
+router.post("/create-qr", async (req, res) => {
+    const { quantity, productId, productType } = req.body;
+    const qty = Number(quantity);
+    if (!qty || !productId || !productType) return res.status(400).json({ error: "Missing fields" });
+
+    const productDetails = await getProduct(productType, productId);
+    if (!productDetails) return res.status(404).json({ error: "Product not found" });
+    if (productDetails.qty < qty) return res.status(400).json({ error: "Insufficient stock" });
+
+    const amountPaise = productDetails.price * qty * 100;
+    const closeBy = Math.floor(Date.now() / 1000) + 900; // 15 minutes from now
+
+    const qr = await rzpRequest("POST", "/payments/qr_codes", {
+        type: "upi_qr",
+        name: "ByteZone",
+        usage: "single_use",
+        fixed_amount: true,
+        payment_amount: amountPaise,
+        description: productDetails.productName.substring(0, 255),
+        close_by: closeBy,
+    });
+
+    if (qr.error) return res.status(400).json({ error: qr.error.description || "Failed to create QR" });
+
+    res.json({
+        qrId: qr.id,
+        qrImageUrl: qr.image_url,
+        amount: amountPaise,
+        expiresAt: closeBy,
+    });
+});
+
+// Poll for QR payment status — records purchase on first detection
+router.get("/check-qr/:qrId", async (req, res) => {
+    const { qrId } = req.params;
+    const { productId, productType, quantity } = req.query;
+    const qty = Number(quantity);
+    const user = getUser(req.cookies?.uid);
+
+    if (!user || !productId || !productType || !qty) return res.status(400).json({ error: "Invalid request" });
+
+    // Already processed — idempotent response
+    if (processedQrCodes.has(qrId)) return res.json({ status: "paid" });
+
+    const payments = await rzpRequest("GET", `/payments/qr_codes/${qrId}/payments`);
+    if (!payments || payments.count === 0) return res.json({ status: "pending" });
+
+    // Payment received — mark immediately to prevent double-recording
+    processedQrCodes.add(qrId);
+
+    const productDetails = await getProduct(productType, productId);
+    if (!productDetails) return res.json({ status: "paid" }); // paid but product issue
+
+    if (productDetails.qty >= qty) {
+        if (productType === "laptop") await Laptop.updateOne({ _id: productId }, { $inc: { qty: -qty } });
+        else if (productType === "desktop") await Desktop.updateOne({ _id: productId }, { $inc: { qty: -qty } });
+        else if (productType === "accessory") await Accessory.updateOne({ _id: productId }, { $inc: { qty: -qty } });
+
+        await User.updateOne({ email: user.email }, {
+            $push: {
+                itemsBought: {
+                    id: productId,
+                    itemType: productType,
+                    qty,
+                    name: productDetails.productName,
+                    image: productDetails.image,
+                    price: productDetails.price,
+                },
+            },
+        });
+    }
+
+    res.json({ status: "paid" });
+});
+
+// Close a QR code early (user cancelled)
+router.post("/close-qr/:qrId", async (req, res) => {
+    const { qrId } = req.params;
+    await rzpRequest("POST", `/payments/qr_codes/${qrId}/close`).catch(() => {});
+    res.json({ ok: true });
 });
 
 module.exports = router;

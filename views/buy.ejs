@@ -7,57 +7,166 @@
   <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/x-icon" />
   <title>Buy — <%= name %></title>
   <style>
-    body { font-family: -apple-system, 'Inter', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', -apple-system, sans-serif; }
+
     .order-card {
-      background: rgba(57,62,70,0.4);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(22,27,34,0.8);
+      border: 1px solid rgba(48,54,61,1);
       border-radius: 1rem;
       padding: 1.5rem;
-      margin: 1rem auto;
+      margin: 1.5rem auto;
       width: 90%;
       max-width: 700px;
     }
     .qty-row { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
-    .qty-row label { color: #eeeeee; font-size: 1.1rem; font-weight: 500; }
+    .qty-row label { color: #e6edf3; font-size: 1rem; font-weight: 500; }
     .qty-input {
       width: 80px;
       padding: 0.5rem;
-      background: rgba(34,40,49,0.5);
+      background: rgba(255,255,255,0.05);
       border: 2px solid #1fe7f1;
       border-radius: 0.5rem;
       color: white;
       font-size: 1.1rem;
       text-align: center;
+      font-family: inherit;
     }
-    .price-display { font-size: 1.5rem; font-weight: 700; color: #1fe7f1; margin: 0.5rem 0; }
+    .price-display { font-size: 1.75rem; font-weight: 700; color: #1fe7f1; margin: 0.5rem 0; }
+    .stock-note { color: rgba(230,237,243,0.4); font-size: 0.85rem; }
+
     .delivery-card {
-      background: rgba(57,62,70,0.25);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(22,27,34,0.5);
+      border: 1px solid rgba(48,54,61,1);
       border-radius: 0.75rem;
       padding: 1rem 1.5rem;
-      margin: 1rem auto;
+      margin: 0 auto 1.5rem;
       width: 90%;
       max-width: 700px;
     }
-    .delivery-card h4 { color: #e7b597; margin-bottom: 0.75rem; font-size: 1.1rem; }
-    .delivery-card p { color: rgba(238,238,238,0.8); margin: 0.25rem 0; font-size: 0.95rem; }
-    .pay-btn {
-      display: block;
+    .delivery-card h4 { color: #f0883e; margin-bottom: 0.75rem; font-size: 1rem; }
+    .delivery-card p { color: rgba(230,237,243,0.7); margin: 0.25rem 0; font-size: 0.9rem; }
+
+    .payment-options {
       width: 90%;
       max-width: 700px;
-      margin: 1.5rem auto;
+      margin: 0 auto 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .pay-btn {
+      width: 100%;
       padding: 1rem;
-      background: #1fe7f1;
-      color: #222831;
       border: none;
       border-radius: 2rem;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
+      font-family: inherit;
     }
-    .pay-btn:hover { opacity: 0.85; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(31,231,241,0.35); }
-    .stock-note { text-align: center; color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 0.25rem; }
+    .pay-btn-card {
+      background: #1fe7f1;
+      color: #0d1117;
+    }
+    .pay-btn-card:hover { background: #00f5ff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(31,231,241,0.35); }
+    .pay-btn-qr {
+      background: transparent;
+      border: 2px solid #388bfd;
+      color: #388bfd;
+    }
+    .pay-btn-qr:hover { background: rgba(56,139,253,0.1); transform: translateY(-2px); }
+    .pay-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: rgba(230,237,243,0.3);
+      font-size: 0.85rem;
+    }
+    .pay-divider::before, .pay-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* QR Modal */
+    .qr-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-overlay.show { display: flex; }
+    .qr-modal {
+      background: #161b22;
+      border: 1px solid rgba(48,54,61,1);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      position: relative;
+    }
+    .qr-modal h3 { color: #1fe7f1; font-size: 1.25rem; margin-bottom: 0.25rem; }
+    .qr-amount { color: #e6edf3; font-size: 1.75rem; font-weight: 700; margin: 0.5rem 0 1.25rem; }
+    .qr-image-wrap {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 0.75rem;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-image-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .qr-loading {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: #888;
+      font-size: 0.85rem;
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid rgba(31,231,241,0.2);
+      border-top-color: #1fe7f1;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .qr-hint { color: rgba(230,237,243,0.4); font-size: 0.8rem; margin-top: 1rem; line-height: 1.5; }
+    .qr-timer { color: #f0883e; font-size: 0.9rem; font-weight: 600; margin-top: 0.75rem; min-height: 1.25rem; }
+    .qr-status { font-size: 0.9rem; min-height: 1.4rem; margin-top: 0.25rem; }
+    .qr-status.waiting { color: rgba(230,237,243,0.4); }
+    .qr-status.success { color: #34d399; font-weight: 600; }
+    .qr-status.error { color: #f87171; }
+    .qr-cancel-btn {
+      margin-top: 1.25rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(230,237,243,0.6);
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .qr-cancel-btn:hover { border-color: rgba(255,255,255,0.3); color: #e6edf3; }
+    .upi-logos { display: flex; justify-content: center; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .upi-logo { background: white; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #333; }
   </style>
 </head>
 <body>
@@ -81,12 +190,41 @@
   </main>
 
   <div class="delivery-card">
-    <h4>Delivery Details</h4>
+    <h4>📦 Delivery Details</h4>
     <p><strong>Address:</strong> <%= address %></p>
     <p><strong>Contact:</strong> <%= contact %></p>
   </div>
 
-  <button class="pay-btn" id="payBtn">Pay with Razorpay</button>
+  <div class="payment-options">
+    <button class="pay-btn pay-btn-card" id="payBtn">💳 Pay with Card / UPI / Wallet</button>
+    <div class="pay-divider">or</div>
+    <button class="pay-btn pay-btn-qr" id="qrBtn">📱 Pay via QR Code</button>
+  </div>
+
+  <!-- QR Code Modal -->
+  <div class="qr-overlay" id="qrOverlay">
+    <div class="qr-modal">
+      <h3>Scan & Pay</h3>
+      <div class="qr-amount" id="qrAmountText"></div>
+      <div class="qr-image-wrap" id="qrImageWrap">
+        <div class="qr-loading" id="qrLoading">
+          <div class="spinner"></div>
+          <span>Generating QR...</span>
+        </div>
+        <img id="qrImage" src="" alt="QR Code" style="display:none;width:100%;height:100%;object-fit:contain;">
+      </div>
+      <div class="upi-logos">
+        <span class="upi-logo">GPay</span>
+        <span class="upi-logo">PhonePe</span>
+        <span class="upi-logo">Paytm</span>
+        <span class="upi-logo">BHIM</span>
+      </div>
+      <p class="qr-hint">Open any UPI app and scan this code.<br>Amount is pre-filled automatically.</p>
+      <div class="qr-timer" id="qrTimer"></div>
+      <div class="qr-status waiting" id="qrStatus">Waiting for payment...</div>
+      <button class="qr-cancel-btn" id="qrCancelBtn">Cancel</button>
+    </div>
+  </div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
@@ -105,23 +243,20 @@
       priceDisplay.textContent = "₹" + (basePrice * q).toLocaleString("en-IN");
     });
 
+    // ─── Card / Razorpay checkout ────────────────────────────────────────────
     document.getElementById("payBtn").addEventListener("click", async () => {
       const quantity = parseInt(qtyInput.value) || 1;
-
       const resp = await fetch("/buy/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quantity, productId, productType }),
       });
-
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
         alert(err.error || "Failed to create order. Please try again.");
         return;
       }
-
       const data = await resp.json();
-
       const options = {
         key: razorpayKeyId,
         amount: data.amount,
@@ -130,40 +265,128 @@
         description: data.productName,
         order_id: data.orderId,
         handler: function (response) {
-          // Post verification form
           const form = document.createElement("form");
           form.method = "POST";
           form.action = "/buy/verify";
-
           const fields = {
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
-            productId,
-            productType,
-            quantity,
+            productId, productType, quantity,
           };
-
           Object.entries(fields).forEach(([k, v]) => {
             const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = k;
-            input.value = v;
+            input.type = "hidden"; input.name = k; input.value = v;
             form.appendChild(input);
           });
-
           document.body.appendChild(form);
           form.submit();
         },
-        prefill: {
-          contact: "<%= contact %>",
-        },
+        prefill: { contact: "<%= contact %>" },
         theme: { color: "#1fe7f1" },
-        modal: { ondismiss: function() { console.log("Payment modal closed"); } }
       };
+      new Razorpay(options).open();
+    });
 
-      const rzp = new Razorpay(options);
-      rzp.open();
+    // ─── QR Code payment ─────────────────────────────────────────────────────
+    let qrPollInterval = null;
+    let qrTimerInterval = null;
+    let currentQrId = null;
+
+    document.getElementById("qrBtn").addEventListener("click", async () => {
+      const quantity = parseInt(qtyInput.value) || 1;
+      openQrModal(quantity);
+
+      const resp = await fetch("/buy/create-qr", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity, productId, productType }),
+      });
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        setQrStatus("error", err.error || "Failed to generate QR. Please try again.");
+        return;
+      }
+
+      const data = await resp.json();
+      currentQrId = data.qrId;
+      document.getElementById("qrAmountText").textContent = "₹" + (data.amount / 100).toLocaleString("en-IN");
+
+      // Show QR image
+      const img = document.getElementById("qrImage");
+      img.onload = () => {
+        document.getElementById("qrLoading").style.display = "none";
+        img.style.display = "block";
+      };
+      img.src = data.qrImageUrl;
+
+      // Countdown timer
+      let secondsLeft = data.expiresAt - Math.floor(Date.now() / 1000);
+      const timerEl = document.getElementById("qrTimer");
+      function updateTimer() {
+        if (secondsLeft <= 0) {
+          timerEl.textContent = "QR code expired";
+          clearInterval(qrTimerInterval);
+          clearInterval(qrPollInterval);
+          setQrStatus("error", "QR expired. Please close and try again.");
+          return;
+        }
+        const m = Math.floor(secondsLeft / 60);
+        const s = secondsLeft % 60;
+        timerEl.textContent = `Expires in ${m}:${s.toString().padStart(2, "0")}`;
+        secondsLeft--;
+      }
+      updateTimer();
+      qrTimerInterval = setInterval(updateTimer, 1000);
+
+      // Poll for payment every 3 seconds
+      qrPollInterval = setInterval(async () => {
+        try {
+          const check = await fetch(`/buy/check-qr/${data.qrId}?productId=${productId}&productType=${productType}&quantity=${quantity}`);
+          const result = await check.json();
+          if (result.status === "paid") {
+            clearInterval(qrPollInterval);
+            clearInterval(qrTimerInterval);
+            timerEl.textContent = "";
+            setQrStatus("success", "✓ Payment received! Redirecting...");
+            setTimeout(() => { window.location.href = "/buy/success"; }, 1500);
+          }
+        } catch (e) { /* network error, keep polling */ }
+      }, 3000);
+    });
+
+    document.getElementById("qrCancelBtn").addEventListener("click", closeQrModal);
+
+    function openQrModal(quantity) {
+      document.getElementById("qrOverlay").classList.add("show");
+      document.getElementById("qrLoading").style.display = "flex";
+      document.getElementById("qrImage").style.display = "none";
+      document.getElementById("qrImage").src = "";
+      document.getElementById("qrAmountText").textContent = "₹" + (basePrice * quantity).toLocaleString("en-IN");
+      document.getElementById("qrTimer").textContent = "";
+      setQrStatus("waiting", "Generating QR code...");
+    }
+
+    async function closeQrModal() {
+      clearInterval(qrPollInterval);
+      clearInterval(qrTimerInterval);
+      document.getElementById("qrOverlay").classList.remove("show");
+      if (currentQrId) {
+        await fetch(`/buy/close-qr/${currentQrId}`, { method: "POST" }).catch(() => {});
+        currentQrId = null;
+      }
+    }
+
+    function setQrStatus(type, msg) {
+      const el = document.getElementById("qrStatus");
+      el.className = "qr-status " + type;
+      el.textContent = msg;
+    }
+
+    // Close modal on overlay click
+    document.getElementById("qrOverlay").addEventListener("click", (e) => {
+      if (e.target === document.getElementById("qrOverlay")) closeQrModal();
     });
   </script>
 </body>
