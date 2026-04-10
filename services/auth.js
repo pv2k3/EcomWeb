@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
 
-const secret = process.env.SECRET_KEY || "pv2k32810"
+if (!process.env.SECRET_KEY) {
+    throw new Error("SECRET_KEY environment variable is required");
+}
+const secret = process.env.SECRET_KEY;
 
 function setUser(user){
     const payload = {
@@ -11,7 +14,7 @@ function setUser(user){
         address: user.address,
         contact: user.contact
     }
-    return jwt.sign(payload ,secret);
+    return jwt.sign(payload, secret, { expiresIn: '7d' });
 }
 
 function getUser(token) {
@@ -26,6 +29,6 @@ function getUser(token) {
 }
 
 module.exports = {
-    getUser, 
+    getUser,
     setUser
 }

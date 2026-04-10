@@ -69,7 +69,7 @@ async function loginUser(req, res) {
 
     const token = setUser(userRecord);
 
-    res.cookie("uid", token);
+    res.cookie("uid", token, { httpOnly: true, sameSite: 'strict' });
     return res.render("account", {
         user: userRecord,
         type: "user",
@@ -107,7 +107,7 @@ async function addUser(req, res) {
         ans = await getAllUserBoughtOrCart(result.itemsBought);
         ans2 = await getAllUserBoughtOrCart(result.itemsInCart);
         token = setUser(result);
-        res.cookie("uid", token);
+        res.cookie("uid", token, { httpOnly: true, sameSite: 'strict' });
         return res.status(201).render("account", {
             user: body,
             item: ans,
