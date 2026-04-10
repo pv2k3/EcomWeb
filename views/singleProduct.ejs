@@ -1,100 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="ByteZone: Your one-stop shop for all your computing needs. Discover a wide range of desktops, laptops, and accessories at competitive prices. Find the perfect tech for work, play, and everything in between.">
-  <meta name="keywords"
-    content="desktops, laptops, computers, accessories, electronics, gaming, business, online shopping, tech deals, bytezone">
   <link rel="stylesheet" href="/css/styleSingleProduct.css" />
   <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/x-icon" />
-  <title>Product <%= name %>
-  </title>
+  <title><%= name %> — ByteZone</title>
 </head>
 <%- include('./partials/tracker') %>
+<body>
+  <nav class="navbar">
+    <a href="/store"><img src="/img/nav_left.svg" alt="back"> Store</a>
+  </nav>
 
-  <body>
-    <nav class="navbar">
-      <a href="/store"> <img loading="lazy" src="/img/nav_left.svg" alt=""> Store</a>
-    </nav>
-    <main class="item-card">
-      <div class="img">
-        <img loading="lazy" src="/img/image/<%= image %>" alt=<%=name %>>
-      </div>
-      <div class="text-section">
-        <h2>
-          <%= name %>
-        </h2>
-        <ul>
-          <li>
-            <h4>Category : </h4>
-            <p>
-              <%= category %>
-            </p>
-          </li>
-          <li>
-            <h4>Price : </h4>
-            <p>Rupees <%= price %>
-            </p>
-          </li>
-        </ul>
-        <% if (locals.specification) { %>
-          <ul>
-            <li>
-              <h4>Processor : </h4>
-              <p>
-                <%= specification.processor %>
-              </p>
-            </li>
-            <li>
-              <h4>RAM : </h4>
-              <p>
-                <%= specification.ram %>
-              </p>
-            </li>
-            <li>
-              <h4>Storage : </h4>
-              <p>
-                <%= specification.storage %>
-              </p>
-            </li>
-            <li>
-              <h4>Battery : </h4>
-              <p>
-                <%= specification.battery %>
-              </p>
-            </li>
-            <li>
-              <h4>Graphics : </h4>
-              <p>
-                <%= specification.graphicCard %>
-              </p>
-            </li>
-          </ul>
-          <% } %>
-            <% if (locals.description) { %>
-              <ul>
-                <li>
-                  <h4>Description: </h4>
-                  <p>
-                    <%= description %>
-                  </p>
-                </li>
-              </ul>
-              <% } %>
-                <section>
-                  <div class="buy">
-                    <a href=<%=`/buy?item=${id}&type=${type}` %>>Buy Now</a>
-                  </div>
-                  <div class="addToCart buy">
-                    <a href=<%=`/buy/addToCart?item=${id}&type=${type}` %>>Add To Cart</a>
-                  </div>
-                </section>
-      </div>
-    </main>
-    <%- include("./partials/scripts") %>
-  </body>
+  <main class="item-card">
+    <div class="img">
+      <img loading="lazy" src="/img/image/<%= image %>" alt="<%= name %>">
+    </div>
+    <div class="text-section">
+      <h2><%= name %></h2>
+      <ul>
+        <li><h4>Category:</h4><p><%= category %></p></li>
+        <li><h4>Price:</h4><p style="color:#1fe7f1;font-weight:700;font-size:1.1rem;">₹<%= price.toLocaleString('en-IN') %></p></li>
+        <li><h4>Stock:</h4><p><%= qty > 0 ? qty + ' available' : 'Out of stock' %></p></li>
+      </ul>
 
+      <% if (locals.specification) { %>
+      <h4 style="margin-top:0.5rem;">Specifications</h4>
+      <table class="spec-table">
+        <tr><td>Processor</td><td><%= specification.processor %></td></tr>
+        <tr><td>RAM</td><td><%= specification.ram %></td></tr>
+        <tr><td>Storage</td><td><%= specification.storage %></td></tr>
+        <tr><td>Battery</td><td><%= specification.battery %></td></tr>
+        <tr><td>Graphics</td><td><%= specification.graphicCard %></td></tr>
+      </table>
+      <% } %>
+
+      <% if (locals.description) { %>
+      <p style="color:rgba(230,237,243,0.65);font-size:0.9rem;line-height:1.6;"><%= description %></p>
+      <% } %>
+
+      <% if (qty > 0) { %>
+      <div class="section">
+        <div class="buy">
+          <a href="/buy?item=<%= id %>&type=<%= type %>">Buy Now</a>
+        </div>
+        <div class="buy addToCart">
+          <a href="/buy/addToCart?item=<%= id %>&type=<%= type %>">Add to Cart</a>
+        </div>
+      </div>
+      <% } else { %>
+      <p style="color:#f87171;font-weight:600;">Currently out of stock</p>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('./partials/scripts') %>
+</body>
 </html>

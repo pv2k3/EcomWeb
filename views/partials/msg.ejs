@@ -1,12 +1,5 @@
 <% if (locals.msg) { %>
-
-  <% if (status == "fail") { %>
-    <div class="notification" style="background-color: red;">
-      <p><%= msg %></p>
-    </div>
-  <% } else { %>
-    <div class="notification" style="background-color: green;"  >
-      <p><%= msg %></p>
-    </div>
-  <%}%>
+  <div class="notification <%= locals.status === 'success' ? 'success' : 'fail' %>">
+    <%= msg %>
+  </div>
 <% } %>

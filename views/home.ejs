@@ -1,25 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ByteZone: Your one-stop shop for all your computing needs. Discover a wide range of desktops, laptops, and accessories at competitive prices. Find the perfect tech for work, play, and everything in between.">
-    <meta name="keywords" content="desktops, laptops, computers, accessories, electronics, gaming, business, online shopping, tech deals, bytezone">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png">
-    <title>Byte Zone</title>
-  </head>
-  <%- include('./partials/tracker') %>
-  <body>
-    <%- include('./partials/navbar') %>
-    <header class="intro">
-      <section class="intro-text-section">
-        <h1>Byte Zone</h1>
-        <p>One of the world's leading tech store</p>
-      </section>
-      <img loading="lazy" src="/img/Logo_Byte.png" alt="byte zone logo">
-    </header>
-    <%- include('./partials/footer') %>
-    <%- include("./partials/scripts") %>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ByteZone: Your one-stop shop for all your computing needs. Desktops, laptops, and accessories at competitive prices.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png">
+  <title>Byte Zone — Tech Store</title>
+</head>
+<%- include('./partials/tracker') %>
+<body>
+  <%- include('./partials/navbar') %>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-tagline">🚀 India's Tech Destination</span>
+      <h1>Power Your World with ByteZone</h1>
+      <p class="hero-subtitle">Laptops, desktops, and accessories curated for students, creators, gamers, and professionals.</p>
+      <div class="hero-actions">
+        <a href="/store" class="btn btn-primary">Shop Now</a>
+        <a href="#featured" class="btn btn-outline">See Featured</a>
+      </div>
+    </div>
+    <img class="hero-img" src="/img/Logo_Byte.png" alt="ByteZone">
+  </section>
+
+  <!-- Features -->
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🚚</div>
+      <h4>Fast Delivery</h4>
+      <p>Pan-India shipping with real-time tracking on every order.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h4>Warranty Assured</h4>
+      <p>All products come with manufacturer warranty and easy returns.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h4>Best Prices</h4>
+      <p>Competitive pricing with exclusive deals for ByteZone members.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎧</div>
+      <h4>24/7 Support</h4>
+      <p>Our tech experts are available around the clock to help you.</p>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <section id="featured">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <a href="/store" class="btn btn-outline" style="font-size:0.875rem;padding:0.4rem 1rem;">View All →</a>
+    </div>
+    <div class="items" style="width:90%;margin:0 auto 2rem;">
+      <% list.forEach(category => { %>
+        <% category.item.slice(0, 2).forEach(element => { %>
+          <% if (element.qty > 0) { %>
+          <a class="container" href="/store/singleProduct?item=<%= element.id %>&type=<%= category.type %>">
+            <div class="wrapper">
+              <div class="banner-image">
+                <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+              </div>
+            </div>
+            <h4><%= element.productName %></h4>
+            <p class="product-price">₹<%= element.price.toLocaleString('en-IN') %></p>
+          </a>
+          <% } %>
+        <% }) %>
+      <% }) %>
+    </div>
+  </section>
+
+  <div class="line"></div>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scripts') %>
+</body>
 </html>

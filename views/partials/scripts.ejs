@@ -1,46 +1,44 @@
 <script>
-  var burger = document.getElementsByClassName("burger")[0];
-  var line = document.getElementsByClassName("burger-line");
-  var nav = document.getElementsByClassName("part-nav")[0];
-  var c = 0;
-  burger.addEventListener("click", () => {
-    if (c == 0) {
-      line[0].style.rotate = "45deg";
-      line[1].style.display = "none";
-      line[2].style.rotate = "-45deg";
-      line[0].style.position = "absolute";
-      nav.style.display = "flex";
-      c = 1;
-    } else {
-      c = 0;
-      line[0].style.rotate = "0deg";
-      line[1].style.display = "flex";
-      line[2].style.rotate = "0deg";
-      line[0].style.position = "relative";
-      nav.style.display = "none";
+  // Burger menu toggle
+  const burger = document.getElementById("burger");
+  const partNav = document.getElementById("partNav");
+  if (burger && partNav) {
+    const lines = burger.querySelectorAll(".burger-line");
+    let open = false;
+    burger.addEventListener("click", () => {
+      open = !open;
+      partNav.classList.toggle("open", open);
+      if (lines.length >= 3) {
+        lines[0].style.rotate = open ? "45deg" : "0deg";
+        lines[1].style.opacity = open ? "0" : "1";
+        lines[2].style.rotate = open ? "-45deg" : "0deg";
+        if (open) {
+          lines[0].style.position = "absolute";
+          lines[2].style.position = "absolute";
+        } else {
+          lines[0].style.position = "relative";
+          lines[2].style.position = "relative";
+        }
+      }
+    });
+  }
+
+  // Active nav link highlight
+  const path = window.location.pathname;
+  const navMap = { "/": "navHome", "/store": "navStore", "/account": "navAccount" };
+  Object.entries(navMap).forEach(([route, id]) => {
+    if (path === route || (route !== "/" && path.startsWith(route))) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add("active");
     }
   });
 
-  async function remove(params) {
-    const tag = params.parentNode;
-
-    tag.addEventListener("click", function (event) {
-      event.preventDefault();
-    });
-
-    tag.remove();
-
+  // Cart item remove
+  async function remove(btn) {
+    const tag = btn.closest("a") || btn.parentNode;
+    tag.addEventListener("click", e => e.preventDefault());
     const URL = tag.getAttribute("href");
-
-    const resp = await fetch(URL, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    tag.remove();
+    await fetch(URL, { method: "DELETE" }).catch(console.error);
   }
 </script>

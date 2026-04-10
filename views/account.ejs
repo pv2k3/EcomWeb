@@ -1,117 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="ByteZone: Your one-stop shop for all your computing needs. Discover a wide range of desktops, laptops, and accessories at competitive prices. Find the perfect tech for work, play, and everything in between.">
-    <meta name="keywords" content="desktops, laptops, computers, accessories, electronics, gaming, business, online shopping, tech deals, bytezone">
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/stylesignup.css" />
-    <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
-    <title>Byte Zone</title>
-  </head>
-  <%- include('./partials/tracker') %>
-  <body>
-    <%- include('./partials/navbar') %>
-    <%- include('./partials/msg') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/stylesignup.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>Account — ByteZone</title>
+</head>
+<%- include('./partials/tracker') %>
+<body>
+  <%- include('./partials/navbar') %>
+  <%- include('./partials/msg') %>
 
-    <div class="parent">
-      <% if (locals.type == "signup") { %>
-      <main class="sign-up-card card">
-        <h1>Sign Up</h1>
-        <form action="/account/signup" method="post">
-          <div class="line-area">
-            <label for="name">Name </label>
-            <input type="text" name="userName" required id="name" />
+  <div class="parent">
+    <% if (locals.type === "signup") { %>
+    <main class="card sign-up-card">
+      <h1>Create Account</h1>
+      <form action="/account/signup" method="post">
+        <div class="line-area"><label>Name</label><input type="text" name="userName" required placeholder="Your name"></div>
+        <div class="line-area"><label>Email</label><input type="email" name="email" required placeholder="you@example.com"></div>
+        <div class="line-area"><label>Password</label><input type="password" name="password" required placeholder="Min 8 characters"></div>
+        <div class="line-area"><label>Phone</label><input type="tel" name="contact" required placeholder="+91 XXXXX XXXXX"></div>
+        <div class="line-area"><label>Address</label><textarea name="address" required placeholder="Your delivery address"></textarea></div>
+        <a href="/account/login">Already have an account? Sign in →</a>
+        <button type="submit">Create Account</button>
+      </form>
+    </main>
+
+    <% } else if (locals.type === "login") { %>
+    <main class="card login-card">
+      <h1>Welcome Back</h1>
+      <form action="/account/login" method="post">
+        <div class="line-area"><label>Email</label><input type="email" name="email" required placeholder="you@example.com"></div>
+        <div class="line-area"><label>Password</label><input type="password" name="password" required placeholder="Your password"></div>
+        <a href="/account/signup">New here? Create an account →</a>
+        <button type="submit">Sign In</button>
+      </form>
+    </main>
+
+    <% } else { %>
+    <!-- Profile view -->
+    <div class="profile-card">
+      <h2>👤 <%= user.userName %></h2>
+      <div class="profile-meta">
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Contact:</strong> <%= user.contact %></p>
+        <p><strong>Address:</strong> <%= user.address %></p>
+      </div>
+      <form action="/logout" method="post" class="logout-form">
+        <button type="submit" class="logout-btn">Sign Out</button>
+      </form>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('orders', this)">Orders (<%= locals.item ? item.length : 0 %>)</button>
+      <button class="tab-btn" onclick="showTab('cart', this)">Cart (<%= locals.item2 ? item2.length : 0 %>)</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-orders">
+      <% if (locals.item && item.length > 0) { %>
+        <% item.forEach(element => { %>
+        <a class="order-item" href="/store/singleProduct?item=<%= element.id %>&type=<%= element.itemType %>">
+          <img class="order-thumb" src="/img/image/<%= element.image %>" alt="<%= element._doc ? element._doc.name : element.name %>">
+          <div class="order-info">
+            <h4><%= element._doc ? element._doc.name : element.name %></h4>
+            <p>Qty: <%= element._doc ? element._doc.qty : element.qty %> &nbsp;·&nbsp; <span style="color:#1fe7f1"><%= element.itemType %></span></p>
           </div>
-          <div class="line-area">
-            <label for="email">Email </label>
-            <input type="email" name="email" required id="email" />
-          </div>
-          <div class="line-area">
-            <label for="password">Password </label>
-            <input type="password" name="password" required id="password" />
-          </div>
-          <div class="line-area">
-            <label for="contact1">Contact </label>
-            <input type="tel" name="contact" required id="contact1" />
-          </div>
-          <div class="line-area">
-            <label for="address">Address </label>
-            <textarea
-              id="address"
-              name="address"
-              required
-              cols="30"
-              rows="3"
-            ></textarea>
-          </div>
-          <a href="/account">Already have an account?</a>
-          <button type="submit">Sign Up</button>
-        </form>
-      </main>
-      <% } else if (locals.type == "login") { %>
-      <main class="login-card card">
-        <h1>Login</h1>
-        <form action="/account/login" method="post">
-          <div class="line-area">
-            <label for="email">Email </label>
-            <input type="email" name="email" required id="email" />
-          </div>
-          <div class="line-area">
-            <label for="password">Password </label>
-            <input type="password" name="password" required id="password" />
-          </div>
-          <a href="/account/signup">Create account</a>
-          <button type="submit">Login</button>
-        </form>
-      </main>
+          <div class="order-price">₹<%= ((element._doc ? element._doc.price : element.price) * (element._doc ? element._doc.qty : element.qty)).toLocaleString('en-IN') %></div>
+        </a>
+        <% }) %>
       <% } else { %>
-      <main class="card">
-        <h2>Logged in as <%= user.userName %></h2>
-        <p>Address : <%= user.address %></p>
-        <p>Contact : <%= user.contact %></p>
-        <form action="/logout" method="post">
-          <button type="submit">Log Out</button>
-        </form>
-        <% if (locals.item) { %>
-        <main class="sect">
-          <h4>Bought Record</h4>
-          <% item.forEach(element => { %>
-          <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
-            <div class="content-image">
-              <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
-            </div>
-            <div class="content">
-              <p><%= element._doc.name %></p>
-              <p><%= element._doc.price * element._doc.qty %></p>
-              <p><%= element._doc.qty %></p>
-            </div>
-          </a>
-          <% }) %>
-        </main>
-        <% } %> <% if (locals.item2) { %>
-        <main class="sect">
-          <h4>Items In Cart</h4>
-          <% item2.forEach(element => { %>
-            <a href = <%= `/store/singleProduct?item=${element.id}&type=${element.itemType}` %>>
-              <div class="content-image">
-                <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
-              </div>
-              <div class="content">
-                <p><%= element._doc.name %></p>
-                <p><%= element._doc.price * element._doc.qty %></p>
-              </div>
-              <button class="del" onclick="remove(this)">
-                <img loading="lazy" src="/img/delete.svg" alt="delete">
-              </button>
-            </a>  
-          <% }) %>
-        </main>
-        <% } %>
-      </main>
+        <p class="empty-tab">No orders yet. <a href="/store">Start shopping →</a></p>
       <% } %>
     </div>
-    <%- include('./partials/footer') %> <%- include("./partials/scripts") %>
-  </body>
+
+    <div class="tab-panel" id="tab-cart">
+      <% if (locals.item2 && item2.length > 0) { %>
+        <% item2.forEach(element => { %>
+        <a class="cart-item" href="/store/singleProduct?item=<%= element.id %>&type=<%= element.itemType %>">
+          <img class="order-thumb" src="/img/image/<%= element.image %>" alt="<%= element._doc ? element._doc.name : element.name %>">
+          <div class="order-info">
+            <h4><%= element._doc ? element._doc.name : element.name %></h4>
+            <p style="color:#1fe7f1;font-weight:600;">₹<%= (element._doc ? element._doc.price : element.price).toLocaleString('en-IN') %></p>
+          </div>
+          <button class="del" onclick="remove(this)">
+            <img src="/img/delete.svg" alt="remove">
+          </button>
+        </a>
+        <% }) %>
+      <% } else { %>
+        <p class="empty-tab">Your cart is empty. <a href="/store">Browse products →</a></p>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scripts') %>
+  <script>
+    function showTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
 </html>

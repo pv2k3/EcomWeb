@@ -1,49 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="ByteZone: Your one-stop shop for all your computing needs. Discover a wide range of desktops, laptops, and accessories at competitive prices. Find the perfect tech for work, play, and everything in between.">
-    <meta name="keywords" content="desktops, laptops, computers, accessories, electronics, gaming, business, online shopping, tech deals, bytezone">
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
-    <title>Byte Zone Store</title>
-  </head>
-  <%- include('./partials/tracker') %>
-  <body>
-    <%- include('./partials/navbar') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ByteZone Store — Laptops, Desktops, Accessories">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="shortcut icon" href="/img/Logo_Byte.png" type="image/png" />
+  <title>ByteZone Store</title>
+</head>
+<%- include('./partials/tracker') %>
+<body>
+  <%- include('./partials/navbar') %>
 
-    <nav class="navigateType">
-      <div class="line"></div>
-      <% list.forEach(element => { %>
-       <h4 onclick="get(this)" id= <%= element.type + "Head" %> > <%= element.type.toUpperCase() %> </h4>
-      <% }) %>
-    </nav>
-    <main class="store-all">
-      <% list.forEach(itemType => { %>
-        
-        <div id= <%= itemType.type %> >
-          <div class="line"></div>
-          <div class="items">
-            <% itemType.item.forEach(element => { %>
-              <% if (element.qty > 0) { %>
-                <a class="container" href=<%= `/store/singleProduct?item=${element.id}&type=${itemType.type}` %>>
-                  <div class="wrapper">
-                    <div class="banner-image">
-                      <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
-                    </div>
+  <div class="navigateType">
+    <% list.forEach(element => { %>
+      <h4 onclick="filterCat(this, '<%= element.type %>')" id="<%= element.type %>Head"><%= element.type.toUpperCase() %></h4>
+    <% }) %>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="searchInput" placeholder="Search products..." oninput="filterSearch(this.value)">
+  </div>
+
+  <main class="store-all">
+    <% list.forEach(itemType => { %>
+      <div id="<%= itemType.type %>">
+        <div class="line"></div>
+        <div class="items">
+          <% itemType.item.forEach(element => { %>
+            <% if (element.qty > 0) { %>
+              <a class="container" href="/store/singleProduct?item=<%= element.id %>&type=<%= itemType.type %>">
+                <div class="wrapper">
+                  <div class="banner-image">
+                    <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
                   </div>
-                  <h4><%= element.productName %></h4>
-                </a>
-              <% } %>
-            <% }) %>
-          </div>
+                </div>
+                <h4><%= element.productName %></h4>
+                <p class="product-price">₹<%= element.price.toLocaleString('en-IN') %></p>
+              </a>
+            <% } else { %>
+              <div class="container" style="opacity:0.4;pointer-events:none;">
+                <div class="wrapper">
+                  <div class="banner-image">
+                    <img loading="lazy" src="/img/image/<%= element.image %>" alt="<%= element.productName %>">
+                  </div>
+                </div>
+                <span class="badge-out-of-stock">Out of Stock</span>
+                <h4><%= element.productName %></h4>
+                <p class="product-price">₹<%= element.price.toLocaleString('en-IN') %></p>
+              </div>
+            <% } %>
+          <% }) %>
         </div>
-      
-      <% }) %>
-    </main>
-    <%- include('./partials/footer') %>
-    <%- include("./partials/scripts") %>
-    <%- include("./partials/storeSwitchItemType") %>
-  </body>
+      </div>
+    <% }) %>
+  </main>
+
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scripts') %>
+  <script>
+    // Category filter
+    function filterCat(el, type) {
+      document.querySelectorAll('.navigateType h4').forEach(h => h.classList.remove('active-cat'));
+      el.classList.add('active-cat');
+      document.querySelectorAll('.store-all > div').forEach(section => {
+        section.style.display = section.id === type ? '' : 'none';
+      });
+    }
+
+    // Search filter
+    function filterSearch(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll('.container').forEach(card => {
+        const name = card.querySelector('h4') ? card.querySelector('h4').textContent.toLowerCase() : '';
+        card.style.display = name.includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
 </html>
